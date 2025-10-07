@@ -40,3 +40,2110 @@ a {
     color-scheme: dark;
   }
 }
+
+
+
+
+.fxt-template-layout7 {
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+  padding: 15px;
+}
+.fxt-template-layout7 .fxt-checkbox-area {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.fxt-template-layout7 .fxt-bg-color {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0;
+  -webkit-box-shadow: 0px 0px 62px 0px rgba(0, 0, 0, 0.07);
+  box-shadow: 0px 0px 62px 0px rgba(0, 0, 0, 0.07);
+      z-index: 999999999;
+}
+.fxt-template-layout7 .fxt-content {
+  padding: 65px 90px 45px;
+  width: 100%;
+  background-color: #ffffff00;
+}
+@media only screen and (max-width: 767px) {
+  .fxt-template-layout7 .fxt-content {
+    padding: 65px 30px 45px;
+  }
+}
+.fxt-template-layout7 .fxt-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.fxt-template-layout7 .fxt-header .fxt-logo {
+  display: block;
+  margin-bottom: 7px;
+}
+.fxt-template-layout7 .fxt-header h1 {
+  color: #fff;
+  font-size: 36px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.fxt-template-layout7 .fxt-header p {
+  color: #999898;
+}
+.fxt-template-layout7 .fxt-form h2 {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+.fxt-template-layout7 .fxt-form p {
+  font-size: 18px;
+  color: #111111;
+  text-align: center;
+}
+.fxt-template-layout7 .fxt-form p span {
+  display: block;
+}
+.fxt-template-layout7 .fxt-form .fxt-otp-logo {
+  text-align: center;
+  margin-bottom: 20px;
+  display: block;
+}
+.fxt-template-layout7 .fxt-form .fxt-otp-label {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 500;
+}
+.fxt-template-layout7 .fxt-form .form-group {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 30px;
+}
+.fxt-template-layout7 .fxt-form .form-group .field-icon {
+  position: absolute;
+  z-index: 1;
+  right: 19px;
+  bottom: 18px;
+  font-size: 14px;
+  color: #a1a1a1;
+}
+.fxt-template-layout7 .fxt-form .form-group .field-icon:before {
+  padding: 17px 10px;
+}
+.fxt-template-layout7 .fxt-form .form-control {
+  min-height: 50px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 1px solid #e7e7e7;
+  padding: 10px 15px;
+  color: #111;
+}
+.fxt-template-layout7 .fxt-form input::-webkit-input-placeholder {
+  color: #a1a1a1;
+  font-size: 15px;
+  font-weight: 300;
+}
+.fxt-template-layout7 .fxt-form input::-moz-placeholder {
+  color: #a1a1a1;
+  font-size: 15px;
+  font-weight: 300;
+}
+.fxt-template-layout7 .fxt-form input:-moz-placeholder {
+  color: #a1a1a1;
+  font-size: 15px;
+  font-weight: 300;
+}
+.fxt-template-layout7 .fxt-form input:-ms-input-placeholder {
+  color: #a1a1a1;
+  font-size: 15px;
+  font-weight: 300;
+}
+.fxt-template-layout7 .fxt-form .fxt-form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+.fxt-template-layout7 .fxt-form .fxt-form-row .fxt-form-col {
+  padding: 10px 5px;
+  text-align: center;
+  margin-right: 10px;
+  flex-basis: 0;
+  flex-grow: 1;
+}
+.fxt-template-layout7 .fxt-form .fxt-form-row .fxt-form-col:last-child {
+  margin-right: 0;
+}
+.fxt-template-layout7 .fxt-form .fxt-form-btn {
+  margin-bottom: 10px;
+}
+.fxt-template-layout7 .fxt-btn-fill {
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 17px;
+  font-weight: 500;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  outline: none;
+  border: 0;
+  color: #fff;
+  border-radius: 3px;
+  background-color: #2e4bf1;
+  padding: 10px 36px;
+  margin-bottom: 10px;
+  width: 100%;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.fxt-template-layout7 .fxt-btn-fill:hover {
+  background-color: #4b7cda;
+  border-color: #4b7cda;
+}
+.fxt-template-layout7 .fxt-btn-fill:focus {
+  outline: none;
+}
+.fxt-template-layout7 .switcher-text {
+  color: #63bbff;
+  font-size: 15px;
+  margin-bottom: 5px;
+  display: block;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.fxt-template-layout7 .switcher-text:hover {
+  color: #000000;
+}
+.fxt-template-layout7 .switcher-text2 {
+  color: #63bbff;
+  font-size: 15px;
+  display: inline-block;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.fxt-template-layout7 .switcher-text2.inline-text {
+  margin-left: 3px;
+}
+.fxt-template-layout7 .switcher-text2:hover {
+  color: #000000;
+}
+.fxt-template-layout7 .fxt-style-line {
+  overflow: hidden;
+  text-align: center;
+}
+.fxt-template-layout7 .fxt-style-line h3 {
+  text-align: center;
+  font-weight: 300;
+  margin-bottom: 30px;
+  font-size: 20px;
+  color: #a4a4a4;
+  display: inline-block;
+  position: relative;
+  padding: 0 25px;
+  z-index: 1;
+}
+.fxt-template-layout7 .fxt-style-line h3:before {
+  display: inline-block;
+  content: "";
+  height: 1px;
+  width: 100%;
+  background-color: #ebebeb;
+  left: 100%;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  position: absolute;
+  z-index: 1;
+}
+.fxt-template-layout7 .fxt-style-line h3:after {
+  display: inline-block;
+  content: "";
+  height: 1px;
+  width: 100%;
+  background-color: #ebebeb;
+  right: 100%;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  position: absolute;
+  z-index: 1;
+}
+.fxt-template-layout7 ul.fxt-socials {
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -5px;
+  margin-left: -5px;
+  margin-bottom: 20px;
+}
+.fxt-template-layout7 ul.fxt-socials li {
+  max-width: 100%;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 33.33333%;
+  flex: 0 0 33.33333%;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-bottom: 10px;
+}
+@media only screen and (max-width: 575px) {
+  .fxt-template-layout7 ul.fxt-socials li {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .fxt-template-layout7 ul.fxt-socials li {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+  }
+}
+.fxt-template-layout7 ul.fxt-socials li a {
+  border-radius: 2px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: flex-start;
+  -ms-flex-pack: flex-start;
+  justify-content: flex-start;
+  font-size: 14px;
+  height: 45px;
+  color: #ffffff;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.fxt-template-layout7 ul.fxt-socials li a i {
+  border-radius: 2px 0 0 2px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+}
+.fxt-template-layout7 ul.fxt-socials li a span {
+  height: 100%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+.fxt-template-layout7 ul.fxt-socials li.fxt-facebook a {
+  background-color: #3b5998;
+}
+.fxt-template-layout7 ul.fxt-socials li.fxt-facebook a i {
+  background-color: #4867aa;
+}
+.fxt-template-layout7 ul.fxt-socials li.fxt-facebook a:hover {
+  background-color: #5676bb;
+}
+.fxt-template-layout7 ul.fxt-socials li.fxt-twitter a {
+  background-color: #00acee;
+}
+.fxt-template-layout7 ul.fxt-socials li.fxt-twitter a i {
+  background-color: #33ccff;
+}
+.fxt-template-layout7 ul.fxt-socials li.fxt-twitter a:hover {
+  background-color: #3dc5f3;
+}
+.fxt-template-layout7 ul.fxt-socials li.fxt-google a {
+  background-color: #CC3333;
+}
+.fxt-template-layout7 ul.fxt-socials li.fxt-google a i {
+  background-color: #db4437;
+}
+.fxt-template-layout7 ul.fxt-socials li.fxt-google a:hover {
+  background-color: #e75042;
+}
+.fxt-template-layout7 .checkbox {
+  padding-left: 5px;
+  margin-right: 30px;
+  margin-bottom: 5px;
+}
+.fxt-template-layout7 .checkbox label {
+  padding-left: 20px;
+  color: #a4a4a4;
+  margin-bottom: 0;
+  font-size: 15px;
+  position: relative;
+}
+.fxt-template-layout7 .checkbox label:before {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 4px;
+  left: 0;
+  margin-left: -5px;
+  border: 1px solid;
+  border-color: #dcdcdc;
+  border-radius: 3px;
+  background-color: #fff;
+  -webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+  -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+  transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+.fxt-template-layout7 .checkbox label:after {
+  position: absolute;
+  margin-left: -20px;
+  padding-left: 3px;
+  font-size: 10px;
+  color: #555555;
+}
+.fxt-template-layout7 .checkbox input[type="checkbox"] {
+  display: none;
+}
+.fxt-template-layout7 .checkbox input[type="checkbox"]:checked + label::after {
+  font-family: 'Font Awesome 5 Free';
+  content: "\f00c";
+  font-weight: 900;
+  color: #ffffff;
+  left: 15px;
+  top: 4px;
+}
+.fxt-template-layout7 .checkbox input[type="checkbox"]:checked + label::before {
+  background-color: #2e4bf1;
+  border-color: #2e4bf1;
+}
+.fxt-template-layout7 .fxt-footer {
+  text-align: center;
+}
+.fxt-template-layout7 .fxt-footer p {
+  color: #999898;
+}
+.fxt-template-layout7 .fxt-footer .fxt-resend-wrap {
+  margin-bottom: 10px;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.fxt-template-layout7 .fxt-footer .fxt-btn-resend {
+  margin-left: 3px;
+  box-shadow: none;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  color: #63bbff;
+  text-decoration: underline;
+  transition: all 0.3s ease-in-out;
+}
+.fxt-template-layout7 .fxt-footer .fxt-btn-resend:focus {
+  outline: none;
+}
+.fxt-template-layout7 .fxt-footer .fxt-btn-resend:hover {
+  color: #000000;
+}
+.fxt-template-layout7 .fxt-footer .text-or {
+  margin-left: 3px;
+  color: #000000;
+}
+
+ .tp-btn-blue {
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 17px;
+    font-weight: 500;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    outline: none;
+    border: 0;
+    color: #fff;
+    border-radius: 3px;
+    background-color: #2e4bf1;
+    padding: 10px 36px;
+    margin-bottom: 10px;
+    width: 100%;
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.bg-set{
+  background: url(../../public/bf82a8ee8d.jpg);
+  background-size: cover;
+}
+.kd-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 10, 10, 0.6);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.sidebar {
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 99;
+  padding-bottom: 50px;
+  position: fixed;
+  width: 270px;
+  z-index: 999;
+  overflow: hidden;
+  overflow-y: auto;
+  background: #FFFFFF;
+  box-shadow: 0 12px 30px rgba(80, 143, 244, 0.1);
+  transition: .3s;
+}
+
+/* line 18, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .small_logo {
+  display: none;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  /* line 21, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+  .sidebar.hide_vertical_menu {
+    left: -20%;
+  }
+}
+
+@media (min-width: 1201px) {
+  /* line 21, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+  .sidebar.hide_vertical_menu {
+    left: -270px;
+  }
+}
+
+@media (max-width: 991px) {
+  /* line 2, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+  .sidebar {
+    left: -280px;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    top: 0;
+    width: 280px;
+    background: #fff;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  /* line 2, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+  .sidebar {
+    width: 20%;
+  }
+}
+
+/* line 40, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .logo {
+  margin: 0px;
+  background: #F3F6F9;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+/* line 46, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .logo .large_logo img {
+  width: 100%;
+}
+
+@media (max-width: 991px) {
+  /* line 40, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+  .sidebar .logo {
+    padding: 30px;
+  }
+}
+
+/* line 55, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .menu-text {
+  font-size: 12px;
+  color: #B1BDCB;
+  font-weight: 600;
+  margin: 0;
+  padding: 12px 0 12px 24px;
+  text-transform: uppercase;
+}
+
+/* line 62, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .menu-text i {
+  display: none;
+}
+
+/* line 67, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .single_sidebar_tittle i {
+  font-size: 18px;
+  margin-right: 12px;
+  color: #f8dbdd;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+/* line 73, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .single_sidebar_tittle a {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #222222;
+  padding: 10px 25px 10px 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  transition: .3s;
+  position: relative;
+  z-index: 0;
+  border-top: 1px solid transparent;
+  background: transparent;
+}
+
+/* line 88, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .single_sidebar_tittle a::before {
+  position: absolute;
+  right: 0;
+  background: #2E4765;
+  width: 0px;
+  top: 0;
+  bottom: 0;
+  content: '';
+  opacity: 0;
+  transition: .3s;
+  right: 0px;
+  visibility: hidden;
+}
+
+/* line 102, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .single_sidebar_tittle a.current_active i {
+  color: #2E4765;
+}
+
+/* line 105, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .single_sidebar_tittle a.current_active::before {
+  opacity: 1;
+  width: 3px;
+  visibility: visible;
+}
+
+/* line 111, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .single_sidebar_tittle a:hover::before {
+  opacity: 1;
+  right: 0;
+  visibility: visible;
+  width: 3px;
+}
+
+/* line 117, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .single_sidebar_tittle a.normal_title {
+  padding: 28px 25px 18px 40px;
+  background: #fff7f8;
+  border-top: 1px solid #eee1e2;
+}
+
+/* line 121, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .single_sidebar_tittle a.normal_title:after {
+  position: absolute;
+  right: 40px;
+  top: 55%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  content: "\f0d8";
+  font-family: "Font Awesome 5 Free";
+  color: #cec1c2;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* line 132, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .single_sidebar_tittle a.normal_title.collapsed {
+  padding: 10px 25px 10px 40px;
+  background: #fff;
+  border-top: 1px solid transparent;
+}
+
+/* line 136, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .single_sidebar_tittle a.normal_title.collapsed:after {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  content: "\f0d7";
+  font-family: "Font Awesome 5 Free";
+  color: #cec1c2;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* line 150, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .single_sidebar_tittle:hover {
+  background-color: #192434;
+}
+
+/* line 152, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .single_sidebar_tittle:hover i {
+  color: #2E4765;
+}
+
+/* line 157, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .single_menu_item {
+  padding-left: 36px;
+  margin: 6px 0;
+  line-height: 21px;
+}
+
+/* line 161, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .single_menu_item:hover {
+  padding-left: 55px !important;
+}
+
+/* line 167, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .sidebar_iner ul li {
+  list-style: none;
+}
+
+/* line 169, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .sidebar_iner ul li .submenu {
+  background: #fff7f8;
+  padding: 0px 0px 0px 70px !important;
+  border-bottom: 1px solid #eee1e2;
+}
+
+/* line 174, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .sidebar_iner ul li .submenu li a {
+  font-size: 13px;
+  line-height: 36px;
+  color: #7e7172;
+  font-weight: 400;
+}
+
+/* line 180, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar .sidebar_iner ul li .submenu li:last-child {
+  padding-bottom: 18px;
+}
+
+@media (max-width: 991px) {
+  /* line 193, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+  .active_sidebar {
+    left: 0;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* line 198, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar_close_icon i {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  text-align: center;
+  line-height: 40px;
+  position: absolute;
+  right: 30px;
+  font-size: 25px;
+  top: 29px;
+  cursor: pointer;
+  color: #222222;
+}
+
+/* line 213, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar_widget .white_box {
+  padding: 30px;
+}
+
+@media (max-width: 991px) {
+  /* line 213, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+  .sidebar_widget .white_box {
+    padding: 25px 15px;
+  }
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1439px) {
+  /* line 213, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+  .sidebar_widget .white_box {
+    padding: 15px;
+  }
+}
+
+@media only screen and (min-width: 1440px) and (max-width: 1679px) {
+  /* line 213, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+  .sidebar_widget .white_box {
+    padding: 25px 15px;
+  }
+}
+
+/* line 224, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar_widget .white_box .btn_2 {
+  margin-top: 25px;
+  width: 100%;
+  text-align: center;
+  padding: 16px 25px;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  /* line 224, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+  .sidebar_widget .white_box .btn_2 {
+    padding: 12px 7px;
+  }
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1439px) {
+  /* line 233, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+  .sidebar_widget .white_box .btn_1 {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+}
+
+/* line 240, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar_widget .date_range {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 6px 0 18px;
+}
+
+/* line 245, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar_widget .date_range .btn_3 {
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+/* line 250, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar_widget .date_range i {
+  display: none;
+}
+
+/* line 253, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar_widget .date_range .start_date, .sidebar_widget .date_range .end_date {
+  width: 115px;
+}
+
+/* line 255, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar_widget .date_range .start_date input, .sidebar_widget .date_range .end_date input {
+  width: 100%;
+  border: 1px solid #e4e8ec;
+  color: #7e7172;
+  font-size: 13px;
+  padding: 11px 20px;
+  border-radius: 5px;
+  font-weight: 300;
+}
+
+/* line 264, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar_widget .date_range .start_date ::placeholder, .sidebar_widget .date_range .end_date ::placeholder {
+  color: #7e7172;
+}
+
+/************ sidebar css end ************/
+/* line 275, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li {
+  margin-left: 0px;
+}
+
+/* line 278, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li a {
+  font-size: 15px;
+  font-weight: 400;
+  color: #144339;
+  padding: 0px 25px 0px 0px;
+  background: #fff;
+  transition: .3s;
+  position: relative;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: 34px auto;
+  grid-gap: 15px;
+  align-items: center;
+  position: relative;
+  background: transparent;
+  color: #8890B5;
+  font-family: "Mulish", sans-serif;
+  padding: 10px 10px 10px 26px;
+  background: #fff;
+  border-radius: 0 30px 30px 0;
+  border-radius: 15px;
+}
+
+/* line 299, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li a:hover {
+  color: #F65365 !important;
+  background: #F6F7FB;
+}
+
+/* line 303, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li a.active {
+  color: #F65365;
+  background: #F8FAFC;
+  border-radius: 15px;
+}
+
+/* line 308, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li a::after {
+  color: #fff;
+  transform: rotate(-90deg) translate(0, -50%);
+  opacity: 1;
+  font-size: 10px;
+  right: 15px;
+  color: #A1A4B9;
+}
+
+/* line 332, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li a i {
+  font-size: 15px;
+  margin-right: 12px;
+  color: #A5ADC6;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+/* line 345, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li a:hover::before {
+  width: 6px;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* line 353, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li > a {
+  color: #144339;
+}
+
+/* line 358, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li.mm-active > a {
+  background: #fff;
+  border-radius: 30px;
+  color: #144339;
+  border-radius: 4px 4px 0 0;
+  background: transparent;
+}
+
+/* line 364, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li.mm-active > a::after {
+  color: #8890B5;
+  transform: rotate(0deg) translate(0, -50%);
+  opacity: 1;
+  font-size: 10px;
+  right: 15px;
+}
+
+/* line 373, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li.mm-active.metis_dropmenu > a {
+  padding-top: 29px;
+  padding-bottom: 30px;
+  color: #A5ADC6;
+}
+
+/* line 380, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li.mm-active > a i {
+  color: #A5ADC6;
+}
+
+/* line 383, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li.mm-active > a::before {
+  opacity: 1;
+  width: 6px;
+  visibility: visible;
+}
+
+/* line 390, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li ul {
+  padding: 0px 0px 5px 40px;
+  background: transparent;
+  border-radius: 0 0 4px 4px;
+  margin-left: 30px;
+  background: #fff;
+}
+
+/* line 403, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li ul li:last-child a {
+  padding-bottom: 30px;
+}
+
+/* line 407, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li ul li a {
+  font-size: 14px;
+  color: #8890B5;
+  font-weight: 400;
+  padding: 0;
+  white-space: nowrap;
+  padding: 0;
+  padding: 10px 0 10px 8px !important;
+  margin-top: 0;
+  margin-left: 0;
+  text-transform: capitalize;
+}
+
+/* line 418, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li ul li a::before {
+  display: none;
+}
+
+/* line 421, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li ul li a.active {
+  color: #F65365 !important;
+}
+
+/* line 426, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li ul li ul {
+  padding-left: 5px;
+}
+
+/* line 436, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.admin_profile_Wrap {
+  margin-bottom: 30px;
+}
+
+/* line 440, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.admin_profile_Wrap ul li {
+  background: #fff7f8;
+  border-top: 1px solid #eee1e2;
+  border-bottom: 1px solid #eee1e2;
+  padding: 30px 0 30px 30px;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  /* line 440, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+  .admin_profile_Wrap ul li {
+    padding: 30px 0 30px 20px;
+  }
+}
+
+/* line 451, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.admin_profile_Wrap ul li a {
+  display: block;
+}
+
+/* line 456, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.admin_profile_Wrap ul li a .admin_profile_inner .thumb img {
+  width: 50px;
+  height: 50px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+/* line 462, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.admin_profile_Wrap ul li a .admin_profile_inner .welcome_rext {
+  margin-left: 15px;
+}
+
+/* line 464, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.admin_profile_Wrap ul li a .admin_profile_inner .welcome_rext h5 {
+  font-size: 14px;
+  font-weight: 500;
+  color: #222222;
+  margin-bottom: 1px;
+  white-space: nowrap;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  /* line 464, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+  .admin_profile_Wrap ul li a .admin_profile_inner .welcome_rext h5 {
+    font-size: 12px;
+  }
+}
+
+/* line 474, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.admin_profile_Wrap ul li a .admin_profile_inner .welcome_rext span {
+  display: block;
+  font-size: 12px;
+  color: #7e7172;
+  font-weight: 300;
+  white-space: nowrap;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  /* line 474, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+  .admin_profile_Wrap ul li a .admin_profile_inner .welcome_rext span {
+    font-size: 11px;
+  }
+}
+
+/* line 487, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.admin_profile_Wrap ul li ul {
+  padding-left: 70px;
+}
+
+/* line 490, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.admin_profile_Wrap ul li ul li {
+  padding: 0;
+  border: 0;
+}
+
+/* line 493, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.admin_profile_Wrap ul li ul li a {
+  font-size: 13px;
+  color: #7e7172;
+  font-weight: 400;
+  padding-bottom: 17px;
+}
+
+
+.main_content {
+  padding-left: 270px;
+  width: 100%;
+  padding-top: 0px !important;
+  transition: .5s;
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 70px;
+  overflow: hidden;
+}
+
+/* line 13, G:/admin_project/8 admin/management_html/scss/_main_content.scss */
+.main_content.full_main_content {
+  padding-left: 136px;
+}
+
+/* line 17, G:/admin_project/8 admin/management_html/scss/_main_content.scss */
+.main_content.main_content_padding_hide {
+  padding-left: 0px;
+  padding-top: 100px !important;
+}
+
+@media (max-width: 991px) {
+  /* line 2, G:/admin_project/8 admin/management_html/scss/_main_content.scss */
+  .main_content {
+    padding: 90px 0 100px 0;
+  }
+}
+
+@media (max-width: 575.98px) {
+  /* line 2, G:/admin_project/8 admin/management_html/scss/_main_content.scss */
+  .main_content {
+    padding: 120px 0 100px 0;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  /* line 2, G:/admin_project/8 admin/management_html/scss/_main_content.scss */
+  .main_content {
+    padding: 120px 0 100px 0;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  /* line 2, G:/admin_project/8 admin/management_html/scss/_main_content.scss */
+  .main_content {
+    padding: 120px 0 100px 0;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  /* line 2, G:/admin_project/8 admin/management_html/scss/_main_content.scss */
+  .main_content {
+    padding-left: 20%;
+  }
+}
+
+/* line 39, G:/admin_project/8 admin/management_html/scss/_main_content.scss */
+.main_content.default_content .main_content_iner {
+  margin: 0;
+  border-radius: 0;
+}
+
+/* line 44, G:/admin_project/8 admin/management_html/scss/_main_content.scss */
+.main_content .main_content_iner {
+  min-height: 68vh;
+  transition: .5s;
+  position: relative;
+  background: #F6F7FB;
+  margin: 0;
+  z-index: 22;
+  border-radius: 0px;
+  padding: 30px 30px;
+}
+
+/* line 54, G:/admin_project/8 admin/management_html/scss/_main_content.scss */
+.main_content .main_content_iner.default_main_contaner_iner {
+  background: #FFFFFF;
+}
+
+/* line 56, G:/admin_project/8 admin/management_html/scss/_main_content.scss */
+.main_content .main_content_iner.default_main_contaner_iner::before {
+  display: none;
+}
+
+@media (max-width: 991px) {
+  /* line 44, G:/admin_project/8 admin/management_html/scss/_main_content.scss */
+  .main_content .main_content_iner {
+    margin: 0;
+    padding: 15px;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1500px) {
+  /* line 79, G:/admin_project/8 admin/management_html/scss/_main_content.scss */
+  .main_content .main_content_iner.main_content_iner_padding {
+    padding: 0 30px 0 30px;
+  }
+}
+
+@media only screen and (min-width: 1440px) and (max-width: 1679px) {
+  /* line 79, G:/admin_project/8 admin/management_html/scss/_main_content.scss */
+  .main_content .main_content_iner.main_content_iner_padding {
+    padding: 0 60px 0 60px;
+  }
+}
+
+@media (min-width: 1680px) {
+  /* line 79, G:/admin_project/8 admin/management_html/scss/_main_content.scss */
+  .main_content .main_content_iner.main_content_iner_padding {
+    padding: 0 135px 0 135px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  /* line 44, G:/admin_project/8 admin/management_html/scss/_main_content.scss */
+  .main_content .main_content_iner {
+    margin-bottom: 20px;
+  }
+}
+
+/* line 99, G:/admin_project/8 admin/management_html/scss/_main_content.scss */
+.address_book_hint p {
+  font-size: 14px;
+  line-height: 26px;
+  margin-bottom: 8px;
+}
+
+/* line 106, G:/admin_project/8 admin/management_html/scss/_main_content.scss */
+.single_element h4 {
+  margin-bottom: 30px;
+}
+
+/* line 109, G:/admin_project/8 admin/management_html/scss/_main_content.scss */
+.single_element .quick_activity_wrap {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 30px;
+  margin-bottom: 30px;
+}
+.header_iner {
+  position: fixed;
+  top: 0;
+  z-index: 99;
+  padding: 20px 30px;
+  position: relative;
+  border-radius: 0px;
+  margin: 0;
+  background: #F6F7FB;
+  border-radius: 0;
+  margin: 0;
+  border-radius: 0px;
+  border-bottom: 2px solid #E8E8E8;
+}
+
+/* line 29, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner.default_header {
+  background: #F65365;
+  border-radius: 0;
+}
+
+@media (max-width: 575.98px) {
+  /* line 2, G:/admin_project/8 admin/management_html/scss/_header.scss */
+  .header_iner {
+    justify-content: flex-end !important;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  /* line 2, G:/admin_project/8 admin/management_html/scss/_header.scss */
+  .header_iner {
+    justify-content: flex-end !important;
+  }
+}
+
+@media (max-width: 991px) {
+  /* line 2, G:/admin_project/8 admin/management_html/scss/_header.scss */
+  .header_iner {
+    padding: 20px;
+    margin: 0;
+  }
+}
+
+@media (max-width: 575.98px) {
+  /* line 2, G:/admin_project/8 admin/management_html/scss/_header.scss */
+  .header_iner {
+    margin: 0;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  /* line 2, G:/admin_project/8 admin/management_html/scss/_header.scss */
+  .header_iner {
+    margin: 0;
+  }
+}
+
+/* line 74, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .page_tittle h3 {
+  font-size: 18px;
+  font-weight: 500;
+  text-transform: capitalize;
+  color: #222222;
+  margin-bottom: 2px;
+}
+
+@media (max-width: 991px) {
+  /* line 74, G:/admin_project/8 admin/management_html/scss/_header.scss */
+  .header_iner .page_tittle h3 {
+    margin-right: 15px;
+  }
+}
+
+/* line 84, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .page_tittle .page_subtitle {
+  font-size: 12px;
+  font-weight: 300;
+  color: #7e7172;
+  margin-bottom: 0;
+}
+
+/* line 89, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .page_tittle .page_subtitle .page_subtitle_inenr {
+  color: #7e7172;
+}
+
+/* line 91, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .page_tittle .page_subtitle .page_subtitle_inenr.active_subcat {
+  color: #fe1724;
+  white-space: nowrap;
+}
+
+/* line 95, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .page_tittle .page_subtitle .page_subtitle_inenr i {
+  margin-left: 10px;
+  margin-right: 7px;
+  font-size: 12px;
+}
+
+/* line 100, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .page_tittle .page_subtitle .page_subtitle_inenr svg {
+  position: relative;
+  margin: 0 7px 0 10px;
+  top: -1px;
+}
+
+@media (max-width: 575.98px) {
+  /* line 100, G:/admin_project/8 admin/management_html/scss/_header.scss */
+  .header_iner .page_tittle .page_subtitle .page_subtitle_inenr svg {
+    margin: 0 2px 0 2px;
+  }
+}
+
+/* line 112, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .btn_1 {
+  margin: 0 30px;
+}
+
+@media (max-width: 991px) {
+  /* line 115, G:/admin_project/8 admin/management_html/scss/_header.scss */
+  .header_iner .notification {
+    margin: 0 10px;
+  }
+}
+
+/* line 119, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .notification i {
+  color: #707070;
+  position: relative;
+  font-size: 20px;
+}
+
+/* line 123, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .notification i:after {
+  position: absolute;
+  content: "";
+  right: -1px;
+  top: 0;
+  height: 9px;
+  width: 9px;
+  background-color: #2E4765;
+  border-radius: 50%;
+}
+
+/* line 135, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .serach_field-area {
+  margin-right: auto;
+  margin-left: 40px;
+  width: 268px;
+}
+
+@media (max-width: 767.98px) {
+  /* line 135, G:/admin_project/8 admin/management_html/scss/_header.scss */
+  .header_iner .serach_field-area {
+    display: none !important;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  /* line 135, G:/admin_project/8 admin/management_html/scss/_header.scss */
+  .header_iner .serach_field-area {
+    width: auto;
+    left: 40px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  /* line 135, G:/admin_project/8 admin/management_html/scss/_header.scss */
+  .header_iner .serach_field-area {
+    width: auto;
+    margin-right: 70px;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  /* line 135, G:/admin_project/8 admin/management_html/scss/_header.scss */
+  .header_iner .serach_field-area {
+    width: auto;
+    margin-right: 70px;
+  }
+}
+
+/* line 156, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .header_right .header_notification_warp {
+  margin-right: 50px;
+  margin-left: 40px;
+}
+
+@media (max-width: 575.98px) {
+  /* line 156, G:/admin_project/8 admin/management_html/scss/_header.scss */
+  .header_iner .header_right .header_notification_warp {
+    margin-right: 25px;
+    margin-left: 20px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  /* line 156, G:/admin_project/8 admin/management_html/scss/_header.scss */
+  .header_iner .header_right .header_notification_warp {
+    margin-right: 35px;
+    margin-left: 25px;
+  }
+}
+
+/* line 167, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .header_right .header_notification_warp li {
+  display: inline-block;
+  position: relative;
+}
+
+/* line 170, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .header_right .header_notification_warp li .serach_button {
+  width: 32px;
+  height: 32px;
+  background: #884FFB;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 32px;
+  cursor: pointer;
+  margin-right: 20px;
+  position: relative;
+}
+
+/* line 180, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .header_right .header_notification_warp li .serach_button i {
+  color: #fff;
+  font-size: 16px;
+  line-height: 32px;
+}
+
+/* line 185, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .header_right .header_notification_warp li .serach_button .serach_field-area {
+  position: absolute;
+  right: 0;
+  top: 0px;
+  top: 0px;
+  background: #fff;
+  border-radius: 10px;
+  opacity: 0;
+  transition: .3s;
+  visibility: hidden;
+  right: 50px;
+  top: -4px;
+}
+
+/* line 197, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .header_right .header_notification_warp li .serach_button .serach_field-area.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* line 201, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .header_right .header_notification_warp li .serach_button .serach_field-area i {
+  color: rgba(137, 80, 252, 0.7);
+}
+
+/* line 204, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .header_right .header_notification_warp li .serach_button .serach_field-area input {
+  border-radius: 10px;
+}
+
+/* line 214, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .header_right .header_notification_warp li:last-child a {
+  margin-right: 0;
+}
+
+/* line 217, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .header_right .header_notification_warp li > a {
+  position: relative;
+  margin-right: 29px;
+}
+
+/* line 220, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .header_right .header_notification_warp li > a img {
+  width: 17px;
+}
+
+/* line 223, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .header_right .header_notification_warp li > a span {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+  color: #fff;
+  display: inline-block;
+  background: #fff;
+  font-size: 11px;
+  border-radius: 50%;
+  right: -12px;
+  top: -12px;
+  background: #F45B0F;
+  line-height: 22px;
+}
+
+@media (max-width: 575.98px) {
+  /* line 242, G:/admin_project/8 admin/management_html/scss/_header.scss */
+  .header_iner .header_right .select_style {
+    display: none !important;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  /* line 242, G:/admin_project/8 admin/management_html/scss/_header.scss */
+  .header_iner .header_right .select_style {
+    display: none !important;
+  }
+}
+
+/* line 251, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.header_iner .nice_Select {
+  color: #929BB5;
+}
+
+
+.sidebar.mini_sidebar {
+  width: 136px;
+  z-index: 1;
+  overflow: visible !important;
+  min-width: 136px;
+  max-width: 136px;
+  position: absolute;
+  z-index: 9999999;
+  height: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
+/* line 14, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar .menu-text {
+  font-size: 12px;
+  color: #B1BDCB;
+  font-weight: 600;
+  margin: 0;
+  padding: 12px 0 12px 24px;
+  text-transform: uppercase;
+  text-align: center;
+  padding-left: 0;
+}
+
+/* line 23, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar .menu-text span {
+  display: none;
+}
+
+/* line 26, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar .menu-text i {
+  display: block;
+}
+
+/* line 30, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar .mini_logo {
+  display: block;
+  width: 136px;
+}
+
+/* line 35, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar .logo {
+  width: 136px;
+  padding: 10px 0;
+  margin: 0;
+  justify-content: center !important;
+}
+
+/* line 41, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar .large_logo {
+  display: none;
+}
+
+/* line 44, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar .small_logo {
+  display: block;
+}
+
+/* line 48, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar .has-arrow::before {
+  display: none;
+}
+
+/* line 52, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar .sidebar-header {
+  padding-left: 11px;
+}
+
+/* line 55, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar .update_sidebar img {
+  max-width: 40px !important;
+}
+
+/* line 59, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu ul li ul {
+  overflow: visible;
+  position: absolute;
+  z-index: 999;
+  left: 100% !important;
+  top: 100%;
+}
+
+/* line 66, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li {
+  position: relative;
+  width: 136px;
+  text-align: center;
+}
+
+/* line 70, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li ul {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+/* line 74, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li ul li a {
+  white-space: nowrap;
+  padding-left: 18px;
+  color: #144339;
+  width: 194px;
+  padding-left: 20px !important;
+}
+
+/* line 81, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li > a {
+  padding-left: 0px;
+  display: grid;
+  grid-template-columns: 44px auto !important;
+}
+
+/* line 88, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li > a.has-arrow::after {
+  display: none;
+}
+
+/* line 91, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li > a .nav_icon_small {
+  width: 136px;
+}
+
+/* line 95, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li > a .nav_title {
+  display: none;
+}
+
+/* line 98, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li > a:hover, .sidebar.mini_sidebar #sidebar_menu > li > a:active {
+  width: 330px;
+}
+
+/* line 102, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li > a:hover .nav_icon_small, .sidebar.mini_sidebar #sidebar_menu > li > a:active .nav_icon_small {
+  display: inline-block;
+}
+
+/* line 105, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li > a:hover .nav_title, .sidebar.mini_sidebar #sidebar_menu > li > a:active .nav_title {
+  display: inline-block;
+}
+
+/* line 108, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li > a:hover.has-arrow::after, .sidebar.mini_sidebar #sidebar_menu > li > a:active.has-arrow::after {
+  display: inline-block;
+}
+
+/* line 113, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li:hover > a, .sidebar.mini_sidebar #sidebar_menu > li.mm-active > a {
+  width: 330px !important;
+}
+
+/* line 117, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li:hover > a:hover, .sidebar.mini_sidebar #sidebar_menu > li:hover > a.active, .sidebar.mini_sidebar #sidebar_menu > li.mm-active > a:hover, .sidebar.mini_sidebar #sidebar_menu > li.mm-active > a.active {
+  width: 330px;
+}
+
+/* line 121, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li:hover > a:hover .nav_icon_small, .sidebar.mini_sidebar #sidebar_menu > li:hover > a.active .nav_icon_small, .sidebar.mini_sidebar #sidebar_menu > li.mm-active > a:hover .nav_icon_small, .sidebar.mini_sidebar #sidebar_menu > li.mm-active > a.active .nav_icon_small {
+  display: inline-block;
+}
+
+/* line 124, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li:hover > a:hover .nav_title, .sidebar.mini_sidebar #sidebar_menu > li:hover > a.active .nav_title, .sidebar.mini_sidebar #sidebar_menu > li.mm-active > a:hover .nav_title, .sidebar.mini_sidebar #sidebar_menu > li.mm-active > a.active .nav_title {
+  display: inline-block;
+}
+
+/* line 127, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li:hover > a:hover.has-arrow::after, .sidebar.mini_sidebar #sidebar_menu > li:hover > a.active.has-arrow::after, .sidebar.mini_sidebar #sidebar_menu > li.mm-active > a:hover.has-arrow::after, .sidebar.mini_sidebar #sidebar_menu > li.mm-active > a.active.has-arrow::after {
+  display: inline-block;
+}
+
+/* line 136, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li.mm-active:hover {
+  overflow: visible;
+}
+
+/* line 139, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li.mm-active > a {
+  background: #fff;
+}
+
+/* line 142, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li.mm-active > a .nav_icon_small {
+  display: inline-block;
+}
+
+/* line 145, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li.mm-active > a .nav_title {
+  display: inline-block;
+}
+
+/* line 148, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li.mm-active > a.has-arrow::after {
+  display: inline-block;
+}
+
+/* line 152, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li.mm-active ul {
+  left: 100%;
+  left: 136px;
+  position: absolute;
+  top: 100%;
+  width: 194px;
+  z-index: 1000;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+/* line 171, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+#main-content.mini_main_content {
+  margin-left: 70px;
+  width: calc(100% - 70px);
+}
+
+@media (max-width: 1370px) {
+  /* line 171, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+  #main-content.mini_main_content {
+    width: calc(100% - 70px);
+  }
+}
+
+@media (min-width: 1200px) {
+  /* line 171, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+  #main-content.mini_main_content {
+    padding: 30px 30px;
+  }
+}
+
+@media (max-width: 991px) {
+  /* line 171, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+  #main-content.mini_main_content {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+/* line 189, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar ul li ul {
+  background: #144339;
+  opacity: .9;
+  position: absolute;
+  left: 100%;
+}
+
+/* line 196, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.collaspe_icon.open_miniSide {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 991px) {
+  /* line 196, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+  .collaspe_icon.open_miniSide {
+    display: none;
+  }
+}
+
+/* line 204, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.collaspe_icon.open_miniSide i {
+  color: #144339;
+  cursor: pointer;
+  font-size: 18px;
+  margin-right: 15px;
+}
+
+/* line 218, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu > li.metis_submenu_up_collaspe ul {
+  top: auto;
+  bottom: 100%;
+}
+
+/* line 226, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu li ul li.metis_submenu {
+  position: relative;
+}
+
+/* line 228, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar #sidebar_menu li ul li.metis_submenu ul {
+  top: 100%;
+  left: 0 !important;
+  position: relative;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* line 236, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.dark_sidebar.mini_sidebar #sidebar_menu > li > a:hover, .sidebar.dark_sidebar.mini_sidebar #sidebar_menu > li > a:active {
+  background: #1e1e2d;
+}
+
+/* line 239, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.dark_sidebar.mini_sidebar #sidebar_menu > li.mm-active > a {
+  background: #1e1e2d;
+  color: #F65365 !important;
+}
+
+/* line 243, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.mini_sidebar.dark_sidebar #sidebar_menu > li ul {
+  background: #1e1e2d;
+  opacity: 1;
+}
+
+/* line 247, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.dark_sidebar.mini_sidebar #sidebar_menu > li ul li a {
+  color: #fff;
+  width: 194px;
+}
+
+/* line 251, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.dark_sidebar.mini_sidebar #sidebar_menu > li ul li a {
+  color: #fff;
+  width: 194px;
+}
+
+/* line 255, G:/admin_project/8 admin/management_html/scss/_mini_menu.scss */
+.sidebar.dark_sidebar.mini_sidebar #sidebar_menu > li.mm-active ul {
+  width: 194px;
+}
+/* Sidebar vertical mode fixes */
+.sidebar .metismenu li { position: static; }
+.sidebar .metismenu .mm-collapse { position: static !important; display: none; }
+.sidebar .metismenu .mm-show { display: block; }
+
+.main_content.full_main_content {
+    padding-left: 136px;
+}
+
+.sidebar #sidebar_menu > li a {
+  font-size: 15px;
+  font-weight: 400;
+  color: #144339;
+  padding: 0px 25px 0px 0px;
+  background: #fff;
+  transition: .3s;
+  position: relative;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: 34px auto;
+  grid-gap: 15px;
+  align-items: center;
+  position: relative;
+  background: transparent;
+  color: #8890B5;
+  font-family: "Mulish", sans-serif;
+  padding: 10px 10px 10px 26px;
+  background: #fff;
+  border-radius: 0 30px 30px 0;
+  border-radius: 15px;
+}
+
+/* line 299, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li a:hover {
+  color: #F65365 !important;
+  background: #F6F7FB;
+}
+
+/* line 303, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li a.active {
+  color: #F65365;
+  background: #F8FAFC;
+  border-radius: 15px;
+}
+
+/* line 308, G:/admin_project/8 admin/management_html/scss/_sidebar.scss */
+.sidebar #sidebar_menu > li a::after {
+  color: #fff;
+  transform: rotate(-90deg) translate(0, -50%);
+  opacity: 1;
+  font-size: 10px;
+  right: 15px;
+  color: #A1A4B9;
+}
+.metismenu li
+{
+list-style: none;
+}
+#sidebar_menu{
+  padding-left: 0px !important;
+}
+.serach_field-area .search_inner {
+    width: 100%;
+}
+.serach_field-area .search_inner input {
+    color: #86898E;
+    font-size: 11px;
+    height: 36px;
+    width: 100%;
+    padding-left: 12px;
+    border: 0;
+    padding-right: 6px;
+    background: #FFFFFF;
+    border-radius: 6px;
+    border: 0;
+    font-weight: 400;
+    padding: 12px;
+}
+.serach_field-area .search_inner button {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    height: 100%;
+    background: transparent;
+    border: 0;
+    width: 32px;
+    height: 32px;
+    background: #F45B0F;
+    line-height: 10px;
+    border-radius: 4px;
+}
+.header_iner .serach_field-area {
+    margin-right: auto;
+    margin-left: 40px;
+    width: 268px;
+}
+.serach_field-area {
+    width: 268px;
+    position: relative;
+    background: #FFFFFF;
+    border-radius: 6px;
+}
+.profile_info {
+  position: relative;
+}
+
+/* line 259, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.profile_info img {
+  max-width: 42px;
+  max-height: 42px;
+  border-radius: 50%;
+  border: 2px solid #94C0D4;
+  cursor: pointer;
+}
+
+@media (max-width: 991px) {
+  /* line 259, G:/admin_project/8 admin/management_html/scss/_header.scss */
+  .profile_info img {
+    max-width: 30px;
+  }
+}
+
+/* line 269, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.profile_info .profile_info_iner {
+  position: absolute;
+  right: 0;
+  background-color: #fff;
+  text-align: left;
+  width: 215px;
+  padding: 0;
+  opacity: 0;
+  visibility: hidden;
+  top: 77px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+
+/* line 282, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.profile_info .profile_info_iner::before {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  top: -10px;
+  right: 15px;
+  border-width: 0 11px 12px 11px;
+  border-color: transparent transparent #567AED transparent;
+  z-index: 2;
+}
+
+/* line 294, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.profile_info .profile_info_iner .profile_author_name {
+  padding: 20px 25px;
+  background: #567AED;
+  border-radius: 10px 15px 0px 0px;
+}
+
+/* line 300, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.profile_info .profile_info_iner a {
+  display: block;
+}
+
+/* line 304, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.profile_info .profile_info_iner p {
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+}
+
+/* line 309, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.profile_info .profile_info_iner h5 {
+  font-size: 20px;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* line 316, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.profile_info:hover .profile_info_iner {
+  opacity: 1;
+  visibility: visible;
+  top: 77px;
+}
+
+/* line 322, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.profile_info .profile_info_details {
+  padding: 20px 25px;
+}
+
+/* line 324, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.profile_info .profile_info_details a {
+  color: #2E4765;
+  font-size: 14px;
+  display: block;
+  padding: 10px 0;
+  font-weight: 400;
+}
+
+/* line 330, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.profile_info .profile_info_details a:hover {
+  color: #2E4765;
+}
+
+/* line 332, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.profile_info .profile_info_details a:hover i {
+  color: #2E4765;
+}
+
+/* line 337, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.profile_info .profile_info_details i {
+  color: #2E4765;
+  font-size: 12px;
+  margin-left: 20px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+/* line 345, G:/admin_project/8 admin/management_html/scss/_header.scss */
+.sidebar_icon {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  right: auto;
+  left: 20px;
+}
+
+
+.btn{
+ background: #000000;
+ color: white;
+}
