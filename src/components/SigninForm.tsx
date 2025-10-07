@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react'
+import Link from 'next/link'
 import { useFormState } from 'react-dom';
 import { loginUserAction } from '@/app/data/actions/auth-actions';
 import { StrapiErrors } from './custom/strapiErrors';
@@ -86,7 +87,7 @@ const SigninForm = () => {
 						
 						<div className="fxt-footer">
 							<div className="fxt-transformY-50 fxt-transition-delay-9">
-								<p>Don't have an account?<a href="register-7.html" className="switcher-text2 inline-text">Register</a></p>
+							<p>Don't have an account?<Link href="/signup" className="switcher-text2 inline-text">Register</Link></p>
 							</div>
               
 						</div>

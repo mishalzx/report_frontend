@@ -7,6 +7,7 @@ import line from "../../../public/line_img.png"
 import search from "../../../public/icon_search.svg"
 import Image from "next/image";
 import user from "../../../public/user.avif"
+// Use API route rather than importing a server action into a client component
 export default function Header() {
   const {
     setSidebarOpen,
@@ -100,7 +101,9 @@ export default function Header() {
                                 <div className="profile_info_details">
                                     <a href="#">My Profile </a>
                                     <a href="#">Settings</a>
-                                    <a href="#">Log Out </a>
+                                    <form action="/api/logout" method="post">
+                                        <button type="submit" className="btn btn-link p-0">Log Out</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

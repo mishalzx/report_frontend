@@ -318,10 +318,36 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
   }
 
   function mapToStrapiData(payload: Payload) {
+    // Normalize fields to match Strapi enums
+    const normalizeOrg = (o: Org) => {
+      let businessType: "Hospitality" | "Retail" | "Manufacturing" | "Services" | "Other";
+      switch (o.businessType) {
+        case "Hospitality":
+          businessType = "Hospitality"; break;
+        case "Retail":
+        case "Retail & E-commerce":
+          businessType = "Retail"; break;
+        case "Manufacturing":
+          businessType = "Manufacturing"; break;
+        case "Other":
+          businessType = "Other"; break;
+        default:
+          businessType = "Services"; // Map all other categories to Services
+      }
+
+      const surveyBy: "company" | "consultant" | "other" = o.surveyBy === "company" ? "company" : "other";
+
+      return {
+        ...o,
+        businessType,
+        surveyBy,
+      };
+    };
+
     return {
       externalId: typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `ext-${Date.now()}`,
       userId: "",
-      org: payload.org,
+      org: normalizeOrg(payload.org),
       results: payload.results.map(r => ({
         index: r.index, part: r.part, question: r.question,
         selectedItems: r.selectedIndices.map((idx, i) => ({ index: idx, label: r.selectedLabels[i] })),
@@ -347,7 +373,10 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
     try {
       const r = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337"}/api/survey-submissions`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(tkn ? { Authorization: `Bearer ${tkn}` } : {}),
+        },
         body: JSON.stringify({ data }),
       });
       const j = await r.json();

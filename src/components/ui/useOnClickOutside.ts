@@ -1,8 +1,8 @@
 // ui/useOnClickOutside.ts
 import { useEffect } from "react";
 
-export function useOnClickOutside<T extends HTMLElement>(
-  ref: React.RefObject<T>,
+export function useOnClickOutside(
+  ref: React.RefObject<HTMLElement | null>,
   handler: () => void
 ) {
   useEffect(() => {
