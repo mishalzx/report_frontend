@@ -1,10 +1,9 @@
 import { getAuthToken } from "./get-token";
 import { getStrapiURL } from "@/app/lib/utils";
-import qs from "qs";
 
-const query = qs.stringify({
-  populate: { image: { fields: ["url", "alternativeText"] } },
-});
+// Equivalent of qs.stringify({ populate: { image: { fields: ["url", "alternativeText"] } } })
+const query =
+  "populate[image][fields][0]=url&populate[image][fields][1]=alternativeText";
 
 export async function getUserMeLoader() {
   const baseUrl = getStrapiURL();

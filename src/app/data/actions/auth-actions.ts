@@ -8,6 +8,26 @@ import {
   loginUserService,
 } from "@/app/data/actions/auth-service";
 
+function extractStrapiErrors(responseData: any): string[] {
+  if (!responseData) return ["Unknown error"]; 
+  // Strapi v4 error shape: { error: { message, details: { errors: [{ message }] } } }
+  const err = responseData.error;
+  if (!err) return ["Unknown error"]; 
+  const messages: string[] = [];
+  if (typeof err.message === "string" && err.message.trim()) {
+    messages.push(err.message);
+  }
+  const nested = err.details?.errors;
+  if (Array.isArray(nested)) {
+    for (const e of nested) {
+      if (typeof e?.message === "string" && e.message.trim()) {
+        messages.push(e.message);
+      }
+    }
+  }
+  return messages.length > 0 ? messages : ["Invalid username or password"]; 
+}
+
 // Cookie configuration
 const config = {
   maxAge: 60 * 60 * 24 * 7, // 1 week
@@ -77,7 +97,7 @@ export async function registerUserAction(
   if (!responseData || responseData.error) {
     return {
       ...state,
-      strapiErrors: responseData?.error || ["Unknown error"],
+      strapiErrors: extractStrapiErrors(responseData),
       message: "Registration failed.",
     };
   }
@@ -86,7 +106,7 @@ export async function registerUserAction(
   if (typeof window !== "undefined") {
     alert("Registration successful! Welcome to the platform.");
   }
-  redirect("/");
+  redirect("/dashboard");
   return { ...state, data: responseData, message: "Registration successful!" };
 }
 
@@ -113,18 +133,18 @@ export async function loginUserAction(
   if (!responseData || responseData.error) {
     return {
       ...state,
-      strapiErrors: responseData?.error || ["Unknown error"],
+      strapiErrors: extractStrapiErrors(responseData),
       message: "Login failed.",
     };
   }
 
   (await cookies()).set("jwt", responseData.jwt, config);
-  redirect("/");
+  redirect("/dashboard");
   return { ...state, data: responseData, message: "Login successful!" };
 }
 
 // Logout user action
 export async function logoutAction(): Promise<void> {
   (await cookies()).set("jwt", "", { ...config, maxAge: 0 });
-  redirect("/");
+  redirect("/signin");
 }

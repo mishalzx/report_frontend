@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { useFormState } from "react-dom";
 import { registerUserAction } from "@/app/data/actions/auth-actions";
 import { StrapiErrors } from "./custom/strapiErrors";
@@ -91,7 +92,7 @@ const SignupForm: React.FC = () => {
                 </form>
               </div>
               <div className="fxt-footer">
-                <p>have an account?<a href="register-4.html" className="switcher-text2 inline-text">Signin</a></p>
+                <p>have an account?<Link href="/signin" className="switcher-text2 inline-text">Signin</Link></p>
               </div>
             </div>
           </div>
