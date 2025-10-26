@@ -13,13 +13,22 @@ type MenuChild = { label: string; href: string };
 type MenuItem = { label: string; icon?: any; href?: string; children?: MenuChild[] };
 
 const MENU: MenuItem[] = [
+
+   {
+    label: "Home", href:"dashboard",
+    icon: dash,
+        children: [
+      { label: "Dashborad", href: "/dashboard" },
+     
+    ],
+  },
+
   {
     label: "User Management",
     icon: dash,
     children: [
-      { label: "Default", href: "/index_2.html" },
-      { label: "Dark Sidebar", href: "/index_3.html" },
-      { label: "Light Sidebar", href: "/index.html" },
+      { label: "Questionnaire", href: "/questionnaire" },
+      
     ],
   },
   {
@@ -66,7 +75,7 @@ export default function Nav() {
       {/* ... logo block ... */}
       <div className="logo d-flex justify-content-between">
         <a className="large_logo"><Image width={170} src={logo} alt=""/></a>
-        <a className="small_logo" href="index.html"><Image width={80} src={logo} alt=""/></a>
+        <a className="small_logo" href=""><Image width={80} src={logo} alt=""/></a>
         <div className="sidebar_close_icon d-lg-none">
             <i className="ti-close"></i>
         </div>

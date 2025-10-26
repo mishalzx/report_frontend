@@ -1,52 +1,94 @@
 "use client";
 
+import Link from "next/link";
 import React, { useEffect, useMemo, useState } from "react";
 import {
-  LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer, Area, AreaChart, BarChart, Bar,
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  BarChart,
+  Bar,
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
 } from "recharts";
 
+/**
+ * Operational Maturity Dashboard – Next.js (Client Component)
+ *
+ * ✅ Works with Strapi at: /api/survey-submissions?populate=*
+ *    Set NEXT_PUBLIC_STRAPI_URL in your .env (e.g. http://localhost:1337)
+ *    This component will auto-paginate through Strapi pages.
+ *
+ * Optionally, you can pass `initialData` as a prop to render without fetching.
+ */
+
+// ------------- Config -------------
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+const PAGE_SIZE = 100; // adjust if you expect large datasets
+
+// ------------- Types (loose to tolerate string/number fields) -------------
+
 type Org = {
-  companyName: string;
-  contactPerson: string;
-  email: string;
-  phone: string;
-  businessType: string;
-  businessTypeOther: string;
-  surveyBy: "company" | "department";
-  department: string;
-  departmentOther: string;
+  companyName?: string;
+  contactPerson?: string;
+  email?: string;
+  phone?: string;
+  businessType?: string;
+  businessTypeOther?: string;
+  surveyBy?: "company" | "department" | string;
+  department?: string;
+  departmentOther?: string;
+};
+
+type Score = {
+  totalPoints?: number | string;
+  maxPoints?: number | string;
+  percentage?: number | string;
 };
 
 type ResultRow = {
-  index: number;
-  part: string;
-  question: string;
-  selectedItems: Array<{ index: number; label: string }>;
+  index?: number | string;
+  part?: string;
+  question?: string;
+  selectedItems?: Array<{ index: number; label: string }>;
 };
 
 type Item = {
   id: number | string;
-  externalId: string;
-  userId: string;
+  externalId?: string;
+  userId?: string;
   org: Org;
-  results: ResultRow[];
-  score: { totalPoints: number; maxPoints: number; percentage: number };
-  redFlags: number;
-  completion: number;
-  timestamp: string;
-  submittedAt: string;
-  version: string;
-  createdAt: string;
+  results?: ResultRow[];
+  score: Score;
+  redFlags?: number | string;
+  completion?: number | string; // count of answered questions
+  timestamp?: string;
+  submittedAt?: string;
+  version?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
 };
 
-function pct(n: number) {
-  return `${Math.round(n)}%`;
-}
+// ----------------------------- Helpers -----------------------------
+const num = (v: any) => {
+  if (typeof v === "number") return v;
+  if (typeof v === "string") return Number(v.replace(/[^\d.\-]/g, "")) || 0;
+  return 0;
+};
 
-function fmtDate(d: string) {
+const pct = (n: number) => `${Math.round(n)}%`;
+
+function fmtDate(d?: string) {
   if (!d) return "—";
   const dt = new Date(d);
-  if (Number.isNaN(+dt)) return d;
+  if (Number.isNaN(+dt)) return d || "—";
   return dt.toLocaleString(undefined, {
     year: "numeric",
     month: "short",
@@ -56,36 +98,94 @@ function fmtDate(d: string) {
   });
 }
 
-export default function DashboardPage() {
-  const [raw, setRaw] = useState<Item[]>([]);
-  const [loading, setLoading] = useState(true);
+function businessTypeOf(org?: Org) {
+  if (!org) return "—";
+  if (org.businessType === "Other") return org.businessTypeOther || "Other";
+  return org.businessType || "—";
+}
+
+// map a Strapi item (which may nest under attributes) to flat Item
+function mapStrapiNode(n: any): Item {
+  const a = n?.attributes || n || {};
+  const org = a.org || n?.org || {};
+  const score = a.score || n?.score || {};
+  const results = a.results || n?.results || [];
+  return {
+    id: n?.id ?? a?.id ?? crypto.randomUUID?.() ?? Math.random().toString(36).slice(2),
+    externalId: a.externalId || n.externalId,
+    userId: a.userId || n.userId,
+    org: {
+      companyName: org.companyName,
+      contactPerson: org.contactPerson,
+      email: org.email,
+      phone: org.phone,
+      businessType: org.businessType,
+      businessTypeOther: org.businessTypeOther,
+      surveyBy: org.surveyBy,
+      department: org.department,
+      departmentOther: org.departmentOther,
+    },
+    results,
+    score,
+    redFlags: a.redFlags ?? n.redFlags,
+    completion: a.completion ?? n.completion,
+    timestamp: a.timestamp ?? n.timestamp,
+    submittedAt: a.submittedAt ?? n.submittedAt,
+    version: a.version ?? n.version,
+    createdAt: a.createdAt ?? n.createdAt,
+    updatedAt: a.updatedAt ?? n.updatedAt,
+    publishedAt: a.publishedAt ?? n.publishedAt,
+  } as Item;
+}
+
+async function fetchAllSubmissions(): Promise<Item[]> {
+  const items: Item[] = [];
+  let page = 1;
+  // Use populate=* to get nested org/score/results
+  while (true) {
+    const url = `${STRAPI_URL}/api/survey-submissions?populate=*&pagination[page]=${page}&pagination[pageSize]=${PAGE_SIZE}`;
+    const r = await fetch(url, { cache: "no-store" });
+    if (!r.ok) throw new Error(`Strapi fetch failed (${r.status})`);
+    const j = await r.json();
+    const data = Array.isArray(j?.data) ? j.data : [];
+    for (const node of data) items.push(mapStrapiNode(node));
+    const pageCount = j?.meta?.pagination?.pageCount ?? 1;
+    if (page >= pageCount) break;
+    page += 1;
+  }
+  return items;
+}
+
+export default function DashboardPage({ initialData }: { initialData?: Item[] }) {
+  const [raw, setRaw] = useState<Item[]>(initialData || []);
+  const [loading, setLoading] = useState<boolean>(!initialData);
+  const [error, setError] = useState<string | null>(null);
+
   const [bizFilter, setBizFilter] = useState<string>("All");
   const [search, setSearch] = useState<string>("");
+  const [dateFrom, setDateFrom] = useState<string>("");
+  const [dateTo, setDateTo] = useState<string>("");
 
   useEffect(() => {
+    if (initialData) return; // already have data
     (async () => {
       try {
-        const r = await fetch("/api/surveys/list", { cache: "no-store" });
-        const j = await r.json();
-        setRaw(j?.data || []);
-      } catch (e) {
+        setLoading(true);
+        const list = await fetchAllSubmissions();
+        setRaw(list);
+      } catch (e: any) {
         console.error(e);
+        setError(e?.message || "Failed to load data");
       } finally {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [initialData]);
 
-  // Distinct business types from data
+  // Distinct business types
   const businessTypes = useMemo(() => {
     const s = new Set<string>();
-    raw.forEach((x) => {
-      const bt =
-        x.org?.businessType === "Other"
-          ? (x.org?.businessTypeOther || "Other")
-          : (x.org?.businessType || "—");
-      if (bt) s.add(bt);
-    });
+    raw.forEach((x) => s.add(businessTypeOf(x.org)));
     return ["All", ...Array.from(s.values()).sort()];
   }, [raw]);
 
@@ -93,115 +193,135 @@ export default function DashboardPage() {
   const rows = useMemo(() => {
     let list = raw.slice();
 
-    if (bizFilter !== "All") {
-      list = list.filter((x) => {
-        const bt =
-          x.org.businessType === "Other"
-            ? (x.org.businessTypeOther || "Other")
-            : (x.org.businessType || "—");
-        return bt === bizFilter;
-      });
-    }
+    if (bizFilter !== "All") list = list.filter((x) => businessTypeOf(x.org) === bizFilter);
 
     if (search.trim()) {
       const q = search.trim().toLowerCase();
       list = list.filter((x) => {
         const hay = [
-          x.org.companyName,
-          x.org.contactPerson,
-          x.org.email,
-          x.org.phone,
-          x.org.businessType,
-          x.org.businessTypeOther,
-          x.org.department,
-          x.org.departmentOther,
+          x.org?.companyName,
+          x.org?.contactPerson,
+          x.org?.email,
+          x.org?.phone,
+          x.org?.businessType,
+          x.org?.businessTypeOther,
+          x.org?.department,
+          x.org?.departmentOther,
         ]
+          .filter(Boolean)
           .join(" ")
           .toLowerCase();
         return hay.includes(q);
       });
     }
 
+    // Date filter (createdAt)
+    if (dateFrom) {
+      const from = new Date(dateFrom).getTime();
+      list = list.filter((x) => new Date(x.createdAt || x.publishedAt || x.timestamp || 0).getTime() >= from);
+    }
+    if (dateTo) {
+      const to = new Date(dateTo).getTime();
+      list = list.filter((x) => new Date(x.createdAt || x.publishedAt || x.timestamp || 0).getTime() <= to);
+    }
+
     return list;
-  }, [raw, bizFilter, search]);
+  }, [raw, bizFilter, search, dateFrom, dateTo]);
 
   // KPIs
   const kpis = useMemo(() => {
-    if (!rows.length) {
-      return {
-        count: 0,
-        avgScore: 0,
-        avgRed: 0,
-        avgCompletion: 0,
-      };
-    }
-    const count = rows.length;
-    const avgScore = rows.reduce((a, b) => a + (b.score?.percentage || 0), 0) / count;
-    const avgRed = rows.reduce((a, b) => a + (b.redFlags || 0), 0) / count;
-    const avgCompletion = rows.reduce((a, b) => a + (b.completion || 0), 0) / count;
+    if (!rows.length)
+      return { count: 0, avgScore: 0, avgRed: 0, avgCompletion: 0, best: 0, worst: 0 };
 
-    return {
-      count,
-      avgScore,
-      avgRed,
-      avgCompletion,
-    };
+    const count = rows.length;
+    const scores = rows.map((r) => num(r.score?.percentage));
+    const avgScore = scores.reduce((a, b) => a + b, 0) / count;
+    const best = Math.max(...scores);
+    const worst = Math.min(...scores);
+    const avgRed = rows.reduce((a, b) => a + num(b.redFlags), 0) / count;
+    const avgCompletion = rows.reduce((a, b) => a + num(b.completion), 0) / count;
+
+    return { count, avgScore, avgRed, avgCompletion, best, worst };
   }, [rows]);
 
   // Score trend (over time)
   const trend = useMemo(() => {
-    const list = rows
+    return rows
       .slice()
-      .sort((a, b) => +new Date(a.createdAt) - +new Date(b.createdAt))
+      .sort((a, b) => +new Date(a.createdAt || 0) - +new Date(b.createdAt || 0))
       .map((r) => ({
-        date: fmtDate(r.createdAt),
-        score: r.score?.percentage || 0,
+        date: fmtDate(r.createdAt || r.publishedAt || r.timestamp),
+        score: num(r.score?.percentage),
       }));
-    return list;
   }, [rows]);
 
-  // Per-part averages (heat/Bar chart)
+  // Part averages (weak → strong). If no selectedItems, fallback to score distribution by part count.
   const partAverages = useMemo(() => {
     const map = new Map<string, { points: number; max: number }>();
     rows.forEach((item) => {
       (item.results || []).forEach((res) => {
-        // compute best score for that question (selectedItems indexes 0..4)
-        const best =
-          (res.selectedItems || []).reduce((acc, it) => Math.max(acc, it.index), 0) || 0;
-        const cur = map.get(res.part) || { points: 0, max: 0 };
-        // index 0 = Not fulfilled -> 0 points; otherwise add index
-        cur.points += best;
-        cur.max += 4; // each question has max 4 points
-        map.set(res.part, cur);
+        // try to compute best index from selectedItems; index ranges 0..4 typically
+        const best = (res?.selectedItems || []).reduce((acc, it) => Math.max(acc, num(it.index)), 0);
+        const cur = map.get(res.part || "Unknown") || { points: 0, max: 0 };
+        cur.points += best; // 0..4
+        cur.max += 4;
+        map.set(res.part || "Unknown", cur);
       });
     });
 
     const arr = Array.from(map.entries()).map(([part, agg]) => ({
-      part: part.split("–").pop()?.trim() || part,
+      part: (part.split("–").pop() || part).trim(),
       pct: agg.max ? Math.round((agg.points / agg.max) * 100) : 0,
     }));
 
-    // Sort by weakest → strongest
+    // If no per-part data, derive a single bar from overall score average
+    if (!arr.length && rows.length) {
+      return [
+        { part: "Overall", pct: Math.round(rows.reduce((a, b) => a + num(b.score?.percentage), 0) / rows.length) },
+      ];
+    }
+
     arr.sort((a, b) => a.pct - b.pct);
     return arr;
   }, [rows]);
 
+  // Red flags distribution for Pie
+  const redDist = useMemo(() => {
+    const buckets = new Map<string, number>();
+    const bin = (v: number) => {
+      if (v === 0) return "0";
+      if (v <= 2) return "1–2";
+      if (v <= 5) return "3–5";
+      return "6+";
+    };
+    rows.forEach((r) => {
+      const key = bin(num(r.redFlags));
+      buckets.set(key, (buckets.get(key) || 0) + 1);
+    });
+    return Array.from(buckets.entries()).map(([name, value]) => ({ name, value }));
+  }, [rows]);
+
+  const COLORS = ["#6366f1", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"]; // Pie colors (indigo, emerald, amber, red, violet)
+
   return (
     <div className="wrap">
       <header className="dash-header">
-        <h1>Operational Maturity Dashboard</h1>
-        <p className="muted">
-          Live analytics from survey submissions stored in Strapi.
-        </p>
+        <div>
+          <h1>Operational Maturity Dashboard</h1>
+          <p className="muted">Live analytics from Strapi survey submissions.</p>
+        </div>
       </header>
 
+      {/* Controls */}
       <section className="controls">
         <div className="filters">
           <div className="field">
             <label>Business Type</label>
             <select value={bizFilter} onChange={(e) => setBizFilter(e.target.value)}>
               {businessTypes.map((t) => (
-                <option key={t} value={t}>{t}</option>
+                <option key={t} value={t}>
+                  {t}
+                </option>
               ))}
             </select>
           </div>
@@ -214,9 +334,18 @@ export default function DashboardPage() {
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
+          <div className="field">
+            <label>Date From</label>
+            <input type="date" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} />
+          </div>
+          <div className="field">
+            <label>Date To</label>
+            <input type="date" value={dateTo} onChange={(e) => setDateTo(e.target.value)} />
+          </div>
         </div>
       </section>
 
+      {/* KPIs */}
       <section className="kpis">
         <div className="kpi">
           <div className="kpi-label">Submissions</div>
@@ -227,18 +356,21 @@ export default function DashboardPage() {
           <div className="kpi-value">{loading ? "…" : pct(kpis.avgScore)}</div>
         </div>
         <div className="kpi">
+          <div className="kpi-label">Best / Worst</div>
+          <div className="kpi-value">{loading ? "…" : `${pct(kpis.best)} / ${pct(kpis.worst)}`}</div>
+        </div>
+        <div className="kpi">
           <div className="kpi-label">Avg Red Flags</div>
           <div className="kpi-value">{loading ? "…" : kpis.avgRed.toFixed(1)}</div>
         </div>
         <div className="kpi">
           <div className="kpi-label">Avg Completion</div>
-          <div className="kpi-value">
-            {loading ? "…" : `${Math.round(kpis.avgCompletion)}/${19}`}
-          </div>
+          <div className="kpi-value">{loading ? "…" : `${Math.round(kpis.avgCompletion)}/19`}</div>
         </div>
       </section>
 
-      <section className="grid-2">
+      {/* Charts */}
+      <section className="grid-3">
         {/* Score trend */}
         <div className="card">
           <h3>Score Trend</h3>
@@ -247,15 +379,15 @@ export default function DashboardPage() {
               <AreaChart data={trend}>
                 <defs>
                   <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#5aa9ff" stopOpacity={0.5}/>
-                    <stop offset="100%" stopColor="#5aa9ff" stopOpacity={0.05}/>
+                    <stop offset="0%" stopColor="#5aa9ff" stopOpacity={0.5} />
+                    <stop offset="100%" stopColor="#5aa9ff" stopOpacity={0.05} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="4 4" opacity={0.2} />
                 <XAxis dataKey="date" />
-                <YAxis domain={[0, 100]} tickFormatter={(v:any) => `${v}%`} />
+                <YAxis domain={[0, 100]} tickFormatter={(v: any) => `${v}%`} />
                 <Tooltip formatter={(v: any) => [`${v}%`, "Score"]} />
-                <Area type="monotone" dataKey="score" stroke="#5aa9ff" fill="url(#g)" />
+                <Area type="monotone" dataKey="score" stroke="#4f46e5" fill="url(#g)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -269,10 +401,28 @@ export default function DashboardPage() {
               <BarChart data={partAverages}>
                 <CartesianGrid strokeDasharray="4 4" opacity={0.2} />
                 <XAxis dataKey="part" />
-                <YAxis domain={[0, 100]} tickFormatter={(v:any) => `${v}%`} />
+                <YAxis domain={[0, 100]} tickFormatter={(v: any) => `${v}%`} />
                 <Tooltip formatter={(v: any) => [`${v}%`, "Avg"]} />
-                <Bar dataKey="pct" fill="#69db7c" />
+                <Bar dataKey="pct" fill="#10b981" />
               </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Red flags distribution */}
+        <div className="card">
+          <h3>Red Flags Distribution</h3>
+          <div style={{ height: 260 }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie data={redDist} dataKey="value" nameKey="name" outerRadius={95} label>
+                  {redDist.map((_, i) => (
+                    <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Legend />
+                <Tooltip />
+              </PieChart>
             </ResponsiveContainer>
           </div>
         </div>
@@ -281,6 +431,7 @@ export default function DashboardPage() {
       {/* Table */}
       <section className="card">
         <h3>Submissions</h3>
+        {error && <div className="error">{error}</div>}
         <div className="table-wrap">
           <table>
             <thead>
@@ -295,59 +446,108 @@ export default function DashboardPage() {
             </thead>
             <tbody>
               {loading && (
-                <tr><td colSpan={6} className="muted">Loading…</td></tr>
+                <tr>
+                  <td colSpan={7} className="muted">Loading…</td>
+                </tr>
               )}
               {!loading && rows.length === 0 && (
-                <tr><td colSpan={6} className="muted">No data</td></tr>
+                <tr>
+                  <td colSpan={7} className="muted">No data</td>
+                </tr>
               )}
-              {!loading && rows.map((r) => {
-                const bt =
-                  r.org.businessType === "Other"
-                    ? (r.org.businessTypeOther || "Other")
-                    : (r.org.businessType || "—");
-                return (
-                  <tr key={r.id}>
-                    <td>
-                      <div className="company">{r.org.companyName || "—"}</div>
-                      <div className="sub muted">{r.org.contactPerson || r.org.email || "—"}</div>
-                    </td>
-                    <td>{bt}</td>
-                    <td>{pct(r.score?.percentage || 0)}</td>
-                    <td>{r.redFlags ?? 0}</td>
-                    <td>{r.completion ?? 0}/19</td>
-                    <td>{fmtDate(r.createdAt)}</td>
-                  </tr>
-                );
-              })}
+              {!loading &&
+                rows.map((r) => {
+                  const bt = businessTypeOf(r.org);
+                  return (
+                    <tr key={String(r.id)}>
+                      <td>
+                        <div className="company">{r.org.companyName || "—"}</div>
+                        <div className="sub muted">{r.org.contactPerson || r.org.email || "—"}</div>
+                      </td>
+                      <td>{bt}</td>
+                      <td>{pct(num(r.score?.percentage) || 0)}</td>
+                      <td>{num(r.redFlags)}</td>
+                      <td>{num(r.completion)}/19</td>
+                      <td>{fmtDate(r.createdAt || r.publishedAt || r.timestamp)}</td>
+                      <td>
+                        <Link href={`/submissionDetailPage/${r.id}`} className="view-btn">View</Link>
+                      </td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
         </div>
       </section>
 
       <style jsx>{`
-        .wrap{max-width:1100px;margin:0 auto;padding:22px}
-        .muted{color:#8ca0c6}
-        .kpis{
-        color:white;
+        :root {
+          --bg: #f7f8fc;
+          --card: #ffffff;
+          --border: #e6e8f0;
+          --text: #0f172a;
+          --muted: #64748b;
+          --accent: #4f46e5; /* indigo */
+          --accent-2: #10b981; /* emerald */
         }
-        .dash-header h1{margin:0 0 4px}
-        .controls{margin:14px 0 12px}
-        .filters{display:flex;gap:12px;flex-wrap:wrap}
-        .field{display:flex;flex-direction:column;gap:6px;min-width:220px}
-        select,input{background:#0f1733;border:1px solid #1d274a;color:#e9eefb;padding:10px;border-radius:10px}
-        .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0 8px}
-        .kpi{background:#121a33;border:1px solid #ffffffff;border-radius:14px;padding:14px}
-        .kpi-label{font-size:.9rem;color:#8ca0c6}
-        .kpi-value{font-size:1.6rem;font-weight:700}
-        .grid-2{display:grid;grid-template-columns:1fr;gap:12px}
-        @media(min-width:920px){.grid-2{grid-template-columns:1fr 1fr}}
-        .card{background:#121a33;border:1px solid #1d274a;border-radius:14px;padding:14px;margin:12px 0}
-        .table-wrap{overflow:auto}
-        table{width:100%;border-collapse:collapse;margin-top:8px}
-        th,td{border-bottom:1px solid #1d274a;padding:10px;text-align:left}
-        th{color:#8ca0c6;font-weight:600}
-        .company{font-weight:600}
-        .sub{font-size:.85rem}
+        .wrap { max-width: 1240px; margin: 0 auto; padding: 28px 24px 64px; color: var(--text); }
+        .dash-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 18px; }
+        .dash-header h1 { margin: 0; font-weight: 800; letter-spacing: -0.02em; font-size: clamp(28px, 3vw, 40px); }
+        .muted { color: var(--muted); }
+
+        .view-btn {
+background: var(--accent);
+color: white;
+padding: 6px 10px;
+border-radius: 8px;
+text-decoration: none;
+font-weight: 600;
+transition: background .2s;
+}
+.view-btn:hover { background: var(--accent-2); }
+
+        /* Controls */
+        .controls { margin: 10px 0 18px; }
+        .filters { display: grid; grid-template-columns: repeat(12, 1fr); gap: 12px; }
+        .field { grid-column: span 12; display: flex; flex-direction: column; gap: 8px; }
+        @media (min-width: 900px) {
+          .field { grid-column: span 3; }
+        }
+        label { font-size: .85rem; color: var(--muted); }
+        select, input[type="text"], input[type="date"] {
+          background: var(--card);
+          border: 1px solid var(--border);
+          color: var(--text);
+          padding: 12px 14px;
+          border-radius: 12px;
+          outline: none;
+          transition: box-shadow .2s ease, border-color .2s ease;
+        }
+        select:focus, input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(79,70,229,.12); }
+
+        /* KPI cards */
+        .kpis { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; margin: 12px 0 16px; }
+        .kpi { grid-column: span 12; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px 18px; box-shadow: 0 6px 18px rgba(15,23,42,.06); }
+        @media (min-width: 900px) { .kpi { grid-column: span 3; } }
+        .kpi-label { font-size: .9rem; color: var(--muted); margin-bottom: 2px; }
+        .kpi-value { font-size: clamp(20px, 3vw, 28px); font-weight: 800; letter-spacing: -0.01em; }
+
+        /* Chart grid */
+        .grid-3 { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        @media (min-width: 1100px) { .grid-3 { grid-template-columns: 1fr 1fr 1fr; } }
+
+        /* Card */
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px; box-shadow: 0 6px 18px rgba(15,23,42,.06); }
+        .card h3 { margin: 2px 0 10px; font-size: 1.05rem; font-weight: 700; color: var(--text); }
+
+        /* Table */
+        .table-wrap { overflow: auto; border-radius: 12px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 6px; }
+        th, td { border-bottom: 1px solid var(--border); padding: 12px 12px; text-align: left; }
+        th { color: var(--muted); font-weight: 600; font-size: .9rem; }
+        tr:hover td { background: #fafbfe; }
+        .company { font-weight: 700; }
+        .sub { font-size: .85rem; color: var(--muted); }
       `}</style>
     </div>
   );
