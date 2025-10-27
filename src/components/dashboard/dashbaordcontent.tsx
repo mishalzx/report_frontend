@@ -104,12 +104,124 @@ function businessTypeOf(org?: Org) {
   return org.businessType || "—";
 }
 
+function downloadJSON(item: Item) {
+  try {
+    // Debug: Log the raw item data to understand structure
+    console.log('=== JSON DOWNLOAD DEBUG ===');
+    console.log('Function called with item:', item);
+    
+    // Function is working - removed alert
+    console.log('Item ID:', item.id);
+    console.log('Item results:', item.results);
+    console.log('Results length:', item.results?.length);
+    
+    if (item.results && item.results.length > 0) {
+      console.log('First result:', item.results[0]);
+      console.log('First result selectedItems:', item.results[0]?.selectedItems);
+      console.log('First result selectedItems length:', item.results[0]?.selectedItems?.length);
+    } else {
+      console.log('No results found or results array is empty');
+    }
+    
+    // Also log the raw data structure
+    console.log('Raw item structure:', JSON.stringify(item, null, 2));
+  
+  // Create a comprehensive JSON structure with all questionnaire data
+  const jsonData = {
+    submissionId: item.id,
+    metadata: {
+      submittedAt: item.createdAt || item.publishedAt || item.timestamp,
+      version: item.version || "1.0",
+      externalId: item.externalId,
+      userId: item.userId
+    },
+    organization: {
+      companyName: item.org?.companyName || "",
+      contactPerson: item.org?.contactPerson || "",
+      email: item.org?.email || "",
+      phone: item.org?.phone || "",
+      businessType: item.org?.businessType || "",
+      businessTypeOther: item.org?.businessTypeOther || "",
+      surveyBy: item.org?.surveyBy || "",
+      department: item.org?.department || "",
+      departmentOther: item.org?.departmentOther || ""
+    },
+    questionnaireResponses: {
+      totalQuestions: item.results?.length || 0,
+      completedQuestions: num(item.completion),
+      questions: (item.results || []).map(result => ({
+        questionNumber: result.index,
+        part: result.part,
+        question: result.question,
+        selectedAnswers: (result.selectedItems || []).map(selected => ({
+          index: selected.index,
+          label: selected.label
+        })),
+        hasAnswer: (result.selectedItems || []).length > 0
+      }))
+    },
+    scoring: {
+      totalPoints: num(item.score?.totalPoints),
+      maxPoints: num(item.score?.maxPoints),
+      percentage: num(item.score?.percentage),
+      redFlags: num(item.redFlags),
+      completionRate: item.results?.length ? Math.round((num(item.completion) / item.results.length) * 100) : 0
+    },
+    summary: {
+      overallScore: `${num(item.score?.percentage)}%`,
+      redFlagsCount: num(item.redFlags),
+      completionStatus: `${num(item.completion)}/${item.results?.length || 19} questions completed`,
+      businessType: businessTypeOf(item.org),
+      submissionDate: fmtDate(item.createdAt || item.publishedAt || item.timestamp)
+    }
+  };
+
+    const dataStr = JSON.stringify(jsonData, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `questionnaire-submission-${item.id}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error('Error in downloadJSON:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    alert(`Error downloading JSON: ${errorMessage}`);
+  }
+}
+
 // map a Strapi item (which may nest under attributes) to flat Item
 function mapStrapiNode(n: any): Item {
   const a = n?.attributes || n || {};
   const org = a.org || n?.org || {};
   const score = a.score || n?.score || {};
-  const results = a.results || n?.results || [];
+  const rawResults = a.results || n?.results || [];
+  
+  // Properly map results with nested selectedItems
+  const results = rawResults.map((result: any) => {
+    const resultData = result?.attributes || result || {};
+    const selectedItems = resultData.selectedItems || result?.selectedItems || [];
+    
+    // Map selectedItems properly
+    const mappedSelectedItems = selectedItems.map((item: any) => {
+      const itemData = item?.attributes || item || {};
+      return {
+        index: itemData.index ?? item?.index,
+        label: itemData.label ?? item?.label
+      };
+    });
+    
+    return {
+      index: resultData.index ?? result?.index,
+      part: resultData.part ?? result?.part,
+      question: resultData.question ?? result?.question,
+      selectedItems: mappedSelectedItems
+    };
+  });
+  
   return {
     id: n?.id ?? a?.id ?? crypto.randomUUID?.() ?? Math.random().toString(36).slice(2),
     externalId: a.externalId || n.externalId,
@@ -143,11 +255,23 @@ async function fetchAllSubmissions(): Promise<Item[]> {
   let page = 1;
   // Use populate=* to get nested org/score/results
   while (true) {
-    const url = `${STRAPI_URL}/api/survey-submissions?populate=*&pagination[page]=${page}&pagination[pageSize]=${PAGE_SIZE}`;
+    const url = `${STRAPI_URL}/api/survey-submissions?populate[results][populate][selectedItems]=true&populate[org]=true&populate[score]=true&pagination[page]=${page}&pagination[pageSize]=${PAGE_SIZE}`;
     const r = await fetch(url, { cache: "no-store" });
     if (!r.ok) throw new Error(`Strapi fetch failed (${r.status})`);
     const j = await r.json();
     const data = Array.isArray(j?.data) ? j.data : [];
+    
+    // Debug: Log raw Strapi response for first item
+    if (page === 1 && data.length > 0) {
+      console.log('=== RAW STRAPI RESPONSE DEBUG ===');
+      console.log('Raw Strapi data for first item:', data[0]);
+      console.log('Raw results:', data[0]?.attributes?.results);
+      if (data[0]?.attributes?.results?.[0]) {
+        console.log('First raw result:', data[0].attributes.results[0]);
+        console.log('First raw result selectedItems:', data[0].attributes.results[0].selectedItems);
+      }
+    }
+    
     for (const node of data) items.push(mapStrapiNode(node));
     const pageCount = j?.meta?.pagination?.pageCount ?? 1;
     if (page >= pageCount) break;
@@ -442,17 +566,18 @@ export default function DashboardPage({ initialData }: { initialData?: Item[] })
                 <th>Red Flags</th>
                 <th>Completed</th>
                 <th>Submitted</th>
+                <th>JSON</th>
               </tr>
             </thead>
             <tbody>
               {loading && (
                 <tr>
-                  <td colSpan={7} className="muted">Loading…</td>
+                  <td colSpan={8} className="muted">Loading…</td>
                 </tr>
               )}
               {!loading && rows.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="muted">No data</td>
+                  <td colSpan={8} className="muted">No data</td>
                 </tr>
               )}
               {!loading &&
@@ -469,6 +594,15 @@ export default function DashboardPage({ initialData }: { initialData?: Item[] })
                       <td>{num(r.redFlags)}</td>
                       <td>{num(r.completion)}/19</td>
                       <td>{fmtDate(r.createdAt || r.publishedAt || r.timestamp)}</td>
+                      <td>
+                        <button 
+                          onClick={() => downloadJSON(r)} 
+                          className="json-btn"
+                          title="Download JSON"
+                        >
+                          📄
+                        </button>
+                      </td>
                       <td>
                         <Link href={`/submissionDetailPage/${r.id}`} className="view-btn">View</Link>
                       </td>
@@ -490,7 +624,29 @@ export default function DashboardPage({ initialData }: { initialData?: Item[] })
           --accent: #4f46e5; /* indigo */
           --accent-2: #10b981; /* emerald */
         }
-        .wrap { max-width: 1240px; margin: 0 auto; padding: 28px 24px 64px; color: var(--text); }
+        
+        /* Ensure the entire component has proper background */
+        :global(body) {
+          background-color: var(--bg) !important;
+        }
+        
+        :global(html) {
+          background-color: var(--bg) !important;
+        }
+        
+        /* Override any dark theme styles */
+        * {
+          background-color: transparent;
+        }
+        
+        .wrap { 
+          max-width: 1240px; 
+          margin: 0 auto; 
+          padding: 28px 24px 64px; 
+          color: var(--text);
+          background-color: var(--bg);
+          min-height: 100vh;
+        }
         .dash-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 18px; }
         .dash-header h1 { margin: 0; font-weight: 800; letter-spacing: -0.02em; font-size: clamp(28px, 3vw, 40px); }
         .muted { color: var(--muted); }
@@ -505,6 +661,19 @@ font-weight: 600;
 transition: background .2s;
 }
 .view-btn:hover { background: var(--accent-2); }
+
+.json-btn {
+background: var(--accent-2);
+color: white;
+border: none;
+padding: 6px 10px;
+border-radius: 8px;
+font-weight: 600;
+cursor: pointer;
+transition: background .2s;
+font-size: 14px;
+}
+.json-btn:hover { background: var(--accent); }
 
         /* Controls */
         .controls { margin: 10px 0 18px; }
@@ -548,6 +717,17 @@ transition: background .2s;
         tr:hover td { background: #fafbfe; }
         .company { font-weight: 700; }
         .sub { font-size: .85rem; color: var(--muted); }
+        
+        /* Error styling */
+        .error {
+          background-color: #fee2e2;
+          color: #dc2626;
+          padding: 12px 16px;
+          border-radius: 8px;
+          border: 1px solid #fecaca;
+          margin-bottom: 16px;
+          font-weight: 600;
+        }
       `}</style>
     </div>
   );
