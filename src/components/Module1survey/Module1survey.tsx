@@ -68,7 +68,7 @@ const QUESTIONS: Question[] = [
     "Poor communication or unclear instructions",
     "Lack of deadlines or prioritization",
     "Resource constraints cause occasional delays",
-    "Delays are rare, risks are proactively managed"]},
+    "Delays are rare, risks are proactively managed "]},
   { part: "Part 4 – Performance & Feedback", q: "How often do you hold reviews or give performance feedback?", answers: [
     "No reviews or feedback at all (Not fulfilled)",
     "Feedback is given irregularly or only in emergencies",
