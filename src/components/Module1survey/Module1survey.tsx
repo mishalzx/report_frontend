@@ -928,7 +928,7 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
 
       {/* Footer nav */}
       <div className="footer-nav">
-        <div className="actions d-flex justify-content-between">
+        <div className="actions buttonsection">
           <button
             className="nav ghost dark"
             disabled={step === 0}

@@ -487,6 +487,10 @@ a {
   color: #000000;
 }
 
+.buttonsection{
+  display: contents;
+}
+
  .tp-btn-blue {
     font-family: 'Roboto', sans-serif;
     cursor: pointer;
@@ -499,7 +503,7 @@ a {
     border: 0;
     color: #fff;
     border-radius: 3px;
-    background-color: #2e4bf1;
+    background-color: #c9a47a;
     padding: 10px 36px;
     margin-bottom: 10px;
     width: 100%;

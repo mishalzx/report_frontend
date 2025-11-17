@@ -19,35 +19,25 @@ const SignupForm: React.FC = () => {
 
   return (
 
-    <section className="fxt-template-animation fxt-template-layout4 loaded">
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-md-6 col-12 fxt-bg-wrap">
-            <div className="fxt-bg-img bgsectsigupimg">
-              <div className="fxt-header">
-                <div className="fxt-transformY-50 fxt-transition-delay-1">
-                  {/* <a href="login-4.html" className="fxt-logo"><img src="img/logo-4.png" alt="Logo" /></a> */}
-                </div>
-                <div className="fxt-transformY-50 fxt-transition-delay-2">
-                  <h1>Welcome To Our My Own Perfume</h1>
-                </div>
-                <div className="fxt-transformY-50 fxt-transition-delay-3">
-                  <p>Our perfume formulas are crafted using a blend of chemical analysis, olfactory expertise, and thorough research, drawing inspiration from the most renowned fragrances on the market. This approach provides valuable insight into the composition and success of popular perfumes and their scent profiles. .</p>
-                </div>
-              </div>
-              <ul className="fxt-socials">
-                <li className="fxt-facebook fxt-transformY-50 fxt-transition-delay-4"><a href="#" title="Facebook"><i className="fab fa-facebook-f"></i></a></li>
-                <li className="fxt-twitter fxt-transformY-50 fxt-transition-delay-5"><a href="#" title="twitter"><i className="fab fa-twitter"></i></a></li>
-                <li className="fxt-google fxt-transformY-50 fxt-transition-delay-6"><a href="#" title="google"><i className="fab fa-google-plus-g"></i></a></li>
-                <li className="fxt-linkedin fxt-transformY-50 fxt-transition-delay-7"><a href="#" title="linkedin"><i className="fab fa-linkedin-in"></i></a></li>
-                <li className="fxt-youtube fxt-transformY-50 fxt-transition-delay-8"><a href="#" title="youtube"><i className="fab fa-youtube"></i></a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="col-md-6 col-12 fxt-bg-color">
-            <div className="fxt-content">
-              <div className="fxt-form">
-                <form id="signupForm" method="post" action={formAction}>
+
+    
+
+
+<section className="fxt-template-animation fxt-template-layout7 bg-set">
+                <div className="kd-overlay"></div>
+
+		<div className="container">
+			<div className="row align-items-center justify-content-center">
+
+				<div className="col-xl-6 col-lg-7 col-sm-12 col-12 fxt-bg-color">
+
+					<div className="fxt-content">
+						<div className="fxt-header">
+							<a href="login-7.html" className="fxt-logo"><img src="https://ariflex.co/assets/imgs/Ariflex%20Logo-02.png" width={200} alt="Logo"/></a>
+							<p>Login into your pages account</p>
+						</div>
+						<div className="fxt-form">
+					  <form id="signupForm" method="post" action={formAction}>
                   <div className="form-group">
                     <label>Username</label>
                     <input type="text" name="username" className="form-control"
@@ -90,15 +80,35 @@ const SignupForm: React.FC = () => {
                   </button>
                   {formState.message && <p>{formState.message}</p>}
                 </form>
-              </div>
-              <div className="fxt-footer">
-                <p>have an account?<Link href="/signin" className="switcher-text2 inline-text">Signin</Link></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+						</div>
+						<div className="fxt-style-line mt-4">
+							<div className="fxt-transformY-50 fxt-transition-delay-5">
+								<h3>Or Login With</h3>
+							</div>
+						</div>
+						
+						<div className="fxt-footer">
+							<div className="fxt-transformY-50 fxt-transition-delay-9">
+							<p>Don't have an account?<Link href="/signup" className="switcher-text2 inline-text">Register</Link></p>
+							</div>
+              
+						</div>
+            
+					</div>
+          
+				</div>
+        
+			</div>
+      
+		</div>
+
+	</section>
+
+
+
+
+
+
 
   );
 };

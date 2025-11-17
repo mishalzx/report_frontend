@@ -21,16 +21,6 @@ const SigninForm = () => {
   return (
   
 
-
-
-
-
-
-
-
-
-
-
 <section className="fxt-template-animation fxt-template-layout7 bg-set">
                 <div className="kd-overlay"></div>
 
@@ -41,7 +31,7 @@ const SigninForm = () => {
 
 					<div className="fxt-content">
 						<div className="fxt-header">
-							<a href="login-7.html" className="fxt-logo"><img src="img/logo-7.png" alt="Logo"/></a>
+							<a href="login-7.html" className="fxt-logo"><img src="https://ariflex.co/assets/imgs/Ariflex%20Logo-02.png" width={200} alt="Logo"/></a>
 							<p>Login into your pages account</p>
 						</div>
 						<div className="fxt-form">
@@ -79,7 +69,7 @@ const SigninForm = () => {
                       {/* <button className="btn btn-primary my-2" type="submit">Log in</button> */}
                     </form>
 						</div>
-						<div className="fxt-style-line">
+						<div className="fxt-style-line mt-4">
 							<div className="fxt-transformY-50 fxt-transition-delay-5">
 								<h3>Or Login With</h3>
 							</div>

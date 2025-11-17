@@ -95,14 +95,14 @@ export default function Header() {
                             <Image src={user} alt="#"/>
                             <div className="profile_info_iner">
                                 <div className="profile_author_name">
-                                    <p>Neurologist </p>
-                                    <h5>Dr. Robar Smith</h5>
+                                    <p>misgal@gmail.com </p>
+                                    <h5>Mishal</h5>
                                 </div>
                                 <div className="profile_info_details">
                                     <a href="#">My Profile </a>
                                     <a href="#">Settings</a>
                                     <form action="/api/logout" method="post">
-                                        <button type="submit" className="btn btn-link p-0">Log Out</button>
+                                        <button type="submit" className="btn b-0 p-0">Log Out</button>
                                     </form>
                                 </div>
                             </div>
