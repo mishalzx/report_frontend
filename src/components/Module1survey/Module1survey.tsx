@@ -41,22 +41,22 @@ const QUESTIONS: Question[] = [
     part: "Part 1 – Organizational Foundation & Structure",
     q: "How clearly are your workflows, roles, and responsibilities defined and documented for employees to follow?",
     answers: [
-      "Not defined or documented at all (Not fulfilled)",
-      "Some roles or workflows exist but mostly informal",
-      "Documented for key areas, but inconsistent or outdated",
-      "Clearly documented and accessible for most teams",
-      "Fully standardized, documented, and regularly updated across all departments",
+      "Not at all",
+      "Rarely / Ad-hoc",
+      "Sometimes / Partial",
+      "Mostly consistent",
+      "Always + well managed",
     ],
   },
   {
     part: "Part 1 – Organizational Foundation & Structure",
     q: "How well do employees understand and follow the documented processes in their daily work?",
     answers: [
-      "No awareness or use of any process documentation (Not fulfilled)",
-      "Only some employees follow written procedures",
-      "Documentation exists, but not consistently followed",
-      "Most teams refer to and comply with documented workflows",
-      "All staff fully trained and adhere to structured operational processes",
+      "Not at all",
+      "Rarely / Ad-hoc",
+      "Sometimes / Partial",
+      "Mostly consistent",
+      "Always + well managed",
     ],
   },
 
@@ -65,22 +65,22 @@ const QUESTIONS: Question[] = [
     part: "Part 2 – Operational Planning & Execution",
     q: "When new goals or strategies are approved, how consistently are they converted into actionable plans?",
     answers: [
-      "No structured process for turning ideas into plans (Not fulfilled)",
-      "Plans created occasionally without ownership",
-      "Some projects tracked manually, others not",
-      "Clear planning with measurable steps and owners",
-      "Standardized execution model used company-wide for every initiative",
+      "Not at all",
+      "Rarely / Ad-hoc",
+      "Sometimes / Partial",
+      "Mostly consistent",
+      "Always + well managed",
     ],
   },
   {
     part: "Part 2 – Operational Planning & Execution",
     q: "How do you monitor progress and ensure tasks are completed as planned?",
     answers: [
-      "No tracking; progress known only when deadlines missed (Not fulfilled)",
-      "Informal updates shared occasionally",
-      "Managers track some activities but lack visibility",
-      "Regular progress tracking with defined responsibilities",
-      "Continuous monitoring with escalation and automated reminders",
+      "Not at all",
+      "Rarely / Ad-hoc",
+      "Sometimes / Partial",
+      "Mostly consistent",
+      "Always + well managed",
     ],
   },
 
@@ -89,22 +89,22 @@ const QUESTIONS: Question[] = [
     part: "Part 3 – Workflow Efficiency & Systems",
     q: "How do teams manage and track their daily tasks and projects?",
     answers: [
-      "No formal system; relies on memory or chat apps (Not fulfilled)",
-      "Simple lists or spreadsheets used manually",
-      "A few tools used inconsistently across teams",
-      "Centralized task tracker used regularly",
-      "Fully integrated digital system with dashboards and accountability",
+      "Not at all",
+      "Rarely / Ad-hoc",
+      "Sometimes / Partial",
+      "Mostly consistent",
+      "Always + well managed",
     ],
   },
   {
     part: "Part 3 – Workflow Efficiency & Systems",
     q: "How often are inefficiencies (e.g., delays, rework, miscommunication) identified and resolved?",
     answers: [
-      "Rarely identified or documented (Not fulfilled)",
-      "Identified occasionally, but no formal resolution",
-      "Discussed periodically, with limited follow-up",
-      "Reviewed through meetings and improvement logs",
-      "Continuously monitored and improved using data-driven insights",
+      "Not at all",
+      "Rarely / Ad-hoc",
+      "Sometimes / Partial",
+      "Mostly consistent",
+      "Always + well managed",
     ],
   },
 
@@ -113,22 +113,22 @@ const QUESTIONS: Question[] = [
     part: "Part 4 – Performance Measurement & Accountability",
     q: "How regularly are employee or team performance results reviewed and discussed?",
     answers: [
-      "No review or feedback system exists (Not fulfilled)",
-      "Feedback given only when problems arise",
-      "Some reviews occur, but not systematically",
-      "Regular reviews (monthly or quarterly) across teams",
-      "Continuous performance tracking integrated into operations",
+      "Not at all",
+      "Rarely / Ad-hoc",
+      "Sometimes / Partial",
+      "Mostly consistent",
+      "Always + well managed",
     ],
   },
   {
     part: "Part 4 – Performance Measurement & Accountability",
     q: "How clearly are responsibilities and accountability defined for achieving key performance goals (KPIs)?",
     answers: [
-      "No defined accountability structure (Not fulfilled)",
-      "Roles unclear; goals often missed",
-      "Some KPIs assigned, but ownership unclear",
-      "Clear accountability for most goals and metrics",
-      "All KPIs linked to specific owners and reviewed frequently",
+      "Not at all",
+      "Rarely / Ad-hoc",
+      "Sometimes / Partial",
+      "Mostly consistent",
+      "Always + well managed",
     ],
   },
 
@@ -137,22 +137,22 @@ const QUESTIONS: Question[] = [
     part: "Part 5 – Communication, Collaboration & Culture",
     q: "How open and effective is communication across departments and levels of management?",
     answers: [
-      "Very poor; frequent silos and misunderstandings (Not fulfilled)",
-      "Basic communication exists but unstructured",
-      "Regular updates but often unclear or delayed",
-      "Effective cross-functional collaboration and updates",
-      "Transparent communication culture supported by leadership",
+      "Not at all",
+      "Rarely / Ad-hoc",
+      "Sometimes / Partial",
+      "Mostly consistent",
+      "Always + well managed",
     ],
   },
   {
     part: "Part 5 – Communication, Collaboration & Culture",
     q: "How easily can employees provide feedback or raise issues to management?",
     answers: [
-      "No channel for feedback (Not fulfilled)",
-      "Employees hesitate or fear to raise issues",
-      "Occasional feedback, not always acted upon",
-      "Clear and open feedback process exists",
-      "Encouraged culture of open communication and action on feedback",
+      "Not at all",
+      "Rarely / Ad-hoc",
+      "Sometimes / Partial",
+      "Mostly consistent",
+      "Always + well managed",
     ],
   },
 
@@ -161,22 +161,22 @@ const QUESTIONS: Question[] = [
     part: "Part 6 – Risk, Problem-Solving & Adaptability",
     q: "How effectively does the company identify and analyze recurring problems or risks?",
     answers: [
-      "No structured problem-tracking system (Not fulfilled)",
-      "Issues identified only during crises",
-      "Some analysis done informally",
-      "Regular reviews with basic documentation",
-      "Proactive risk identification with root-cause analysis and prevention",
+      "Not at all",
+      "Rarely / Ad-hoc",
+      "Sometimes / Partial",
+      "Mostly consistent",
+      "Always + well managed",
     ],
   },
   {
     part: "Part 6 – Risk, Problem-Solving & Adaptability",
     q: "How well does your organization adapt to new systems, technologies, or market changes?",
     answers: [
-      "Strong resistance to change (Not fulfilled)",
-      "Adopts changes only under pressure",
-      "Some openness but inconsistent adoption",
-      "Generally adaptable and responsive",
-      "Highly agile; adapts quickly through continuous learning",
+      "Not at all",
+      "Rarely / Ad-hoc",
+      "Sometimes / Partial",
+      "Mostly consistent",
+      "Always + well managed",
     ],
   },
 
@@ -185,22 +185,22 @@ const QUESTIONS: Question[] = [
     part: "Part 7 – Financial Health & Resource Utilization",
     q: "How regularly are costs, budgets, and resource usage reviewed for efficiency?",
     answers: [
-      "Rarely or never reviewed (Not fulfilled)",
-      "Reviewed only when overspending occurs",
-      "Occasional cost reviews at department level",
-      "Regular cost analysis linked to KPIs",
-      "Ongoing financial efficiency tracking with proactive actions",
+      "Not at all",
+      "Rarely / Ad-hoc",
+      "Sometimes / Partial",
+      "Mostly consistent",
+      "Always + well managed",
     ],
   },
   {
     part: "Part 7 – Financial Health & Resource Utilization",
     q: "How quickly are financial inefficiencies (losses, revenue leaks) detected and corrected?",
     answers: [
-      "Not detected until it causes major loss (Not fulfilled)",
-      "Detected late, with no follow-up",
-      "Occasionally detected and corrected",
-      "Regularly monitored through finance reviews",
-      "Automatically tracked through data analytics and immediate corrective action",
+      "Not at all",
+      "Rarely / Ad-hoc",
+      "Sometimes / Partial",
+      "Mostly consistent",
+      "Always + well managed",
     ],
   },
 
@@ -209,22 +209,22 @@ const QUESTIONS: Question[] = [
     part: "Part 8 – Market Awareness & Benchmarking",
     q: "How often does the company compare its performance with competitors or industry benchmarks?",
     answers: [
-      "Never benchmarked (Not fulfilled)",
-      "Discussed informally but not documented",
-      "Benchmarking done occasionally for specific areas",
-      "Regular comparisons against key industry standards",
-      "Continuous benchmarking with integration of external best practices",
+      "Not at all",
+      "Rarely / Ad-hoc",
+      "Sometimes / Partial",
+      "Mostly consistent",
+      "Always + well managed",
     ],
   },
   {
     part: "Part 8 – Market Awareness & Benchmarking",
     q: "How aware is leadership of changing market trends and competitor strategies?",
     answers: [
-      "No awareness or tracking (Not fulfilled)",
-      "Awareness exists but rarely analyzed",
-      "Market data reviewed occasionally",
-      "Regular market analysis done and shared",
-      "Market intelligence integrated into strategic planning",
+      "Not at all",
+      "Rarely / Ad-hoc",
+      "Sometimes / Partial",
+      "Mostly consistent",
+      "Always + well managed",
     ],
   },
 
@@ -233,22 +233,22 @@ const QUESTIONS: Question[] = [
     part: "Part 9 – Continuous Improvement & Innovation",
     q: "How often does your organization review and improve its processes, systems, or tools?",
     answers: [
-      "No improvement reviews conducted (Not fulfilled)",
-      "Only after major issues occur",
-      "Occasionally reviewed without formal process",
-      "Regular internal reviews for efficiency",
-      "Continuous improvement embedded in company operations",
+      "Not at all",
+      "Rarely / Ad-hoc",
+      "Sometimes / Partial",
+      "Mostly consistent",
+      "Always + well managed",
     ],
   },
   {
     part: "Part 9 – Continuous Improvement & Innovation",
     q: "How actively does leadership encourage new ideas or innovation from employees?",
     answers: [
-      "No encouragement for innovation (Not fulfilled)",
-      "Occasionally accepts ideas but rarely implements",
-      "Some initiatives taken but limited recognition",
-      "Regular idea-sharing and pilot programs encouraged",
-      "Strong innovation culture with recognition and measurable impact",
+      "Not at all",
+      "Rarely / Ad-hoc",
+      "Sometimes / Partial",
+      "Mostly consistent",
+      "Always + well managed",
     ],
   },
 ];
@@ -1092,8 +1092,8 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
           display: flex;
           align-items: center;
           gap: 8px;
-          padding: 12px 14px;
-          border: 1px solid var(--border);
+          padding: 7px 20px;
+          border: 1px solid #e2e2e2;
           border-radius: 12px;
           background: #fff;
           cursor: pointer;
@@ -1103,7 +1103,7 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
         }
         .opt.active {
           border-color: var(--ink);
-          box-shadow: 0 0 0 2px #0b12200f;
+          box-shadow: 0 0 0 2px #000000;
         }
         .meta {
           display: flex;
