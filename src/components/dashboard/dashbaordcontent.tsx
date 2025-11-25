@@ -1,25 +1,28 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { Table } from "react-bootstrap";
 import {
-  ResponsiveContainer,
-  AreaChart,
   Area,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  BarChart,
+  AreaChart,
   Bar,
-  PieChart,
-  Pie,
+  BarChart,
+  CartesianGrid,
   Cell,
   Legend,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from "recharts";
+import "./Dashboard.css";
 
 // ------------- Config -------------
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+const STRAPI_URL =
+  process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
 const PAGE_SIZE = 100;
 
 // ------------- Types -------------
@@ -141,9 +144,13 @@ function downloadJSON(item: Item) {
       summary: {
         overallScore: `${num(item.score?.percentage)}%`,
         redFlagsCount: num(item.redFlags),
-        completionStatus: `${num(item.completion)}/${item.results?.length || 19} questions completed`,
+        completionStatus: `${num(item.completion)}/${
+          item.results?.length || 19
+        } questions completed`,
         businessType: businessTypeOf(item.org),
-        submissionDate: fmtDate(item.createdAt || item.publishedAt || item.timestamp),
+        submissionDate: fmtDate(
+          item.createdAt || item.publishedAt || item.timestamp
+        ),
       },
     };
 
@@ -159,7 +166,8 @@ function downloadJSON(item: Item) {
     URL.revokeObjectURL(url);
   } catch (error) {
     console.error("Error in downloadJSON:", error);
-    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
     alert(`Error downloading JSON: ${errorMessage}`);
   }
 }
@@ -174,7 +182,8 @@ function mapStrapiNode(n: any): Item {
   // Properly map results with nested selectedItems
   const results = rawResults.map((result: any) => {
     const resultData = result?.attributes || result || {};
-    const selectedItems = resultData.selectedItems || result?.selectedItems || [];
+    const selectedItems =
+      resultData.selectedItems || result?.selectedItems || [];
 
     const mappedSelectedItems = selectedItems.map((si: any) => {
       const siData = si?.attributes || si || {};
@@ -249,7 +258,11 @@ async function fetchAllSubmissions(): Promise<Item[]> {
   return items;
 }
 
-export default function DashboardPage({ initialData }: { initialData?: Item[] }) {
+export default function DashboardPage({
+  initialData,
+}: {
+  initialData?: Item[];
+}) {
   const [raw, setRaw] = useState<Item[]>(initialData || []);
   const [loading, setLoading] = useState<boolean>(!initialData);
   const [error, setError] = useState<string | null>(null);
@@ -286,7 +299,8 @@ export default function DashboardPage({ initialData }: { initialData?: Item[] })
   const rows = useMemo(() => {
     let list = raw.slice();
 
-    if (bizFilter !== "All") list = list.filter((x) => businessTypeOf(x.org) === bizFilter);
+    if (bizFilter !== "All")
+      list = list.filter((x) => businessTypeOf(x.org) === bizFilter);
 
     if (search.trim()) {
       const q = search.trim().toLowerCase();
@@ -313,16 +327,18 @@ export default function DashboardPage({ initialData }: { initialData?: Item[] })
       const from = new Date(dateFrom).getTime();
       list = list.filter(
         (x) =>
-          new Date(x.createdAt || x.publishedAt || x.timestamp || 0).getTime() >=
-          from
+          new Date(
+            x.createdAt || x.publishedAt || x.timestamp || 0
+          ).getTime() >= from
       );
     }
     if (dateTo) {
       const to = new Date(dateTo).getTime();
       list = list.filter(
         (x) =>
-          new Date(x.createdAt || x.publishedAt || x.timestamp || 0).getTime() <=
-          to
+          new Date(
+            x.createdAt || x.publishedAt || x.timestamp || 0
+          ).getTime() <= to
       );
     }
 
@@ -332,7 +348,14 @@ export default function DashboardPage({ initialData }: { initialData?: Item[] })
   // KPIs
   const kpis = useMemo(() => {
     if (!rows.length)
-      return { count: 0, avgScore: 0, avgRed: 0, avgCompletion: 0, best: 0, worst: 0 };
+      return {
+        count: 0,
+        avgScore: 0,
+        avgRed: 0,
+        avgCompletion: 0,
+        best: 0,
+        worst: 0,
+      };
 
     const count = rows.length;
     const scores = rows.map((r) => num(r.score?.percentage));
@@ -340,7 +363,8 @@ export default function DashboardPage({ initialData }: { initialData?: Item[] })
     const best = Math.max(...scores);
     const worst = Math.min(...scores);
     const avgRed = rows.reduce((a, b) => a + num(b.redFlags), 0) / count;
-    const avgCompletion = rows.reduce((a, b) => a + num(b.completion), 0) / count;
+    const avgCompletion =
+      rows.reduce((a, b) => a + num(b.completion), 0) / count;
 
     return { count, avgScore, avgRed, avgCompletion, best, worst };
   }, [rows]);
@@ -349,10 +373,7 @@ export default function DashboardPage({ initialData }: { initialData?: Item[] })
   const trend = useMemo(() => {
     return rows
       .slice()
-      .sort(
-        (a, b) =>
-          +new Date(a.createdAt || 0) - +new Date(b.createdAt || 0)
-      )
+      .sort((a, b) => +new Date(a.createdAt || 0) - +new Date(b.createdAt || 0))
       .map((r) => ({
         date: fmtDate(r.createdAt || r.publishedAt || r.timestamp),
         score: num(r.score?.percentage),
@@ -408,7 +429,10 @@ export default function DashboardPage({ initialData }: { initialData?: Item[] })
       const key = bin(num(r.redFlags));
       buckets.set(key, (buckets.get(key) || 0) + 1);
     });
-    return Array.from(buckets.entries()).map(([name, value]) => ({ name, value }));
+    return Array.from(buckets.entries()).map(([name, value]) => ({
+      name,
+      value,
+    }));
   }, [rows]);
 
   const COLORS = ["#6366f1", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"];
@@ -417,8 +441,12 @@ export default function DashboardPage({ initialData }: { initialData?: Item[] })
     <div className="wrap">
       <header className="dash-header">
         <div>
-          <h1>Operational Maturity Dashboard</h1>
-          <p className="muted">Live analytics from Strapi survey submissions.</p>
+          <h4 className=" fw-semibold letter-spacing">
+            Operational Maturity Dashboard
+          </h4>
+          <p className="muted ">
+            Live analytics from Strapi survey submissions.
+          </p>
         </div>
       </header>
 
@@ -426,8 +454,11 @@ export default function DashboardPage({ initialData }: { initialData?: Item[] })
       <section className="controls">
         <div className="filters">
           <div className="field">
-            <label>Business Type</label>
-            <select value={bizFilter} onChange={(e) => setBizFilter(e.target.value)}>
+            <label className="form-label text-dark">Business Type</label>
+            <select
+              value={bizFilter}
+              onChange={(e) => setBizFilter(e.target.value)}
+            >
               {businessTypes.map((t) => (
                 <option key={t} value={t}>
                   {t}
@@ -436,7 +467,7 @@ export default function DashboardPage({ initialData }: { initialData?: Item[] })
             </select>
           </div>
           <div className="field">
-            <label>Search</label>
+            <label className="form-label text-dark">Search</label>
             <input
               type="text"
               placeholder="Company, contact, email…"
@@ -445,7 +476,7 @@ export default function DashboardPage({ initialData }: { initialData?: Item[] })
             />
           </div>
           <div className="field">
-            <label>Date From</label>
+            <label className="form-label text-dark">Date From</label>
             <input
               type="date"
               value={dateFrom}
@@ -453,8 +484,12 @@ export default function DashboardPage({ initialData }: { initialData?: Item[] })
             />
           </div>
           <div className="field">
-            <label>Date To</label>
-            <input type="date" value={dateTo} onChange={(e) => setDateTo(e.target.value)} />
+            <label className="form-label text-dark">Date To</label>
+            <input
+              type="date"
+              value={dateTo}
+              onChange={(e) => setDateTo(e.target.value)}
+            />
           </div>
         </div>
       </section>
@@ -490,17 +525,21 @@ export default function DashboardPage({ initialData }: { initialData?: Item[] })
       </section>
 
       {/* Charts */}
-      <section className="grid-3">
+      <section className="grid-3 mb-3">
         {/* Score trend */}
-        <div className="card">
-          <h3>Score Trend</h3>
+        <div className="card ">
+          <h3 className=" fw-semibold letter-spacing">Score Trend</h3>
           <div style={{ height: 260 }}>
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={trend}>
                 <defs>
                   <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="#5aa9ff" stopOpacity={0.5} />
-                    <stop offset="100%" stopColor="#5aa9ff" stopOpacity={0.05} />
+                    <stop
+                      offset="100%"
+                      stopColor="#5aa9ff"
+                      stopOpacity={0.05}
+                    />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="4 4" opacity={0.2} />
@@ -520,7 +559,9 @@ export default function DashboardPage({ initialData }: { initialData?: Item[] })
 
         {/* Part averages */}
         <div className="card">
-          <h3>Part Averages (weak → strong)</h3>
+          <h3 className=" fw-semibold letter-spacing">
+            Part Averages (weak → strong)
+          </h3>
           <div style={{ height: 260 }}>
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={partAverages}>
@@ -536,7 +577,9 @@ export default function DashboardPage({ initialData }: { initialData?: Item[] })
 
         {/* Red flags distribution */}
         <div className="card">
-          <h3>Red Flags Distribution</h3>
+          <h3 className=" fw-semibold letter-spacing">
+            Red Flags Distribution
+          </h3>
           <div style={{ height: 260 }}>
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -560,13 +603,13 @@ export default function DashboardPage({ initialData }: { initialData?: Item[] })
       </section>
 
       {/* Table */}
-      <section className="card">
+      <section>
         <h3>Submissions</h3>
         {error && <div className="error">{error}</div>}
-        <div className="table-wrap">
-          <table>
+        <div className="pt-4 table-responsive">
+          <Table responsive="sm table_class">
             <thead>
-              <tr>
+              <tr className="table_white_head">
                 <th>Company</th>
                 <th>Business Type</th>
                 <th>Score</th>
@@ -577,7 +620,7 @@ export default function DashboardPage({ initialData }: { initialData?: Item[] })
                 <th>View</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="table_white">
               {loading && (
                 <tr>
                   <td colSpan={8} className="muted">
@@ -610,9 +653,7 @@ export default function DashboardPage({ initialData }: { initialData?: Item[] })
                       <td>{num(r.redFlags)}</td>
                       <td>{num(r.completion)}/19</td>
                       <td>
-                        {fmtDate(
-                          r.createdAt || r.publishedAt || r.timestamp
-                        )}
+                        {fmtDate(r.createdAt || r.publishedAt || r.timestamp)}
                       </td>
                       <td>
                         <button
@@ -635,228 +676,9 @@ export default function DashboardPage({ initialData }: { initialData?: Item[] })
                   );
                 })}
             </tbody>
-          </table>
+          </Table>
         </div>
       </section>
-
-      {/* Styles */}
-      <style jsx>{`
-        :root {
-          --bg: #f7f8fc;
-          --card: #ffffff;
-          --border: #e6e8f0;
-          --text: #0f172a;
-          --muted: #64748b;
-          --accent: #4f46e5; /* indigo */
-          --accent-2: #10b981; /* emerald */
-        }
-
-        :global(body) {
-          background-color: var(--bg) !important;
-        }
-
-        :global(html) {
-          background-color: var(--bg) !important;
-        }
-
-        * {
-          background-color: transparent;
-        }
-
-        .wrap {
-          max-width: 1240px;
-          margin: 0 auto;
-          padding: 28px 24px 64px;
-          color: var(--text);
-          background-color: var(--bg);
-          min-height: 100vh;
-        }
-        .dash-header {
-          display: flex;
-          align-items: baseline;
-          justify-content: space-between;
-          margin-bottom: 18px;
-        }
-        .dash-header h1 {
-          margin: 0;
-          font-weight: 800;
-          letter-spacing: -0.02em;
-          font-size: clamp(28px, 3vw, 40px);
-        }
-        .muted {
-          color: var(--muted);
-        }
-
-        .view-btn {
-          background: var(--accent);
-          color: white;
-          padding: 6px 10px;
-          border-radius: 8px;
-          text-decoration: none;
-          font-weight: 600;
-          transition: background 0.2s;
-        }
-        .view-btn:hover {
-          background: var(--accent-2);
-        }
-
-        .json-btn {
-          background: var(--accent-2);
-          color: white;
-          border: none;
-          padding: 6px 10px;
-          border-radius: 8px;
-          font-weight: 600;
-          cursor: pointer;
-          transition: background 0.2s;
-          font-size: 14px;
-        }
-        .json-btn:hover {
-          background: var(--accent);
-        }
-
-        /* Controls */
-        .controls {
-          margin: 10px 0 18px;
-        }
-        .filters {
-          display: grid;
-          grid-template-columns: repeat(12, 1fr);
-          gap: 12px;
-        }
-        .field {
-          grid-column: span 12;
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
-        }
-        @media (min-width: 900px) {
-          .field {
-            grid-column: span 3;
-          }
-        }
-        label {
-          font-size: 0.85rem;
-          color: var(--muted);
-        }
-        select,
-        input[type="text"],
-        input[type="date"] {
-          background: var(--card);
-          border: 1px solid var(--border);
-          color: var(--text);
-          padding: 12px 14px;
-          border-radius: 12px;
-          outline: none;
-          transition: box-shadow 0.2s ease, border-color 0.2s ease;
-        }
-        select:focus,
-        input:focus {
-          border-color: var(--accent);
-          box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
-        }
-
-        /* KPI cards */
-        .kpis {
-          display: grid;
-          grid-template-columns: repeat(12, 1fr);
-          gap: 14px;
-          margin: 12px 0 16px;
-        }
-        .kpi {
-          grid-column: span 12;
-          background: var(--card);
-          border: 1px solid var(--border);
-          border-radius: 16px;
-          padding: 16px 18px;
-          box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
-        }
-        @media (min-width: 900px) {
-          .kpi {
-            grid-column: span 3;
-          }
-        }
-        .kpi-label {
-          font-size: 0.9rem;
-          color: var(--muted);
-          margin-bottom: 2px;
-        }
-        .kpi-value {
-          font-size: clamp(20px, 3vw, 28px);
-          font-weight: 800;
-          letter-spacing: -0.01em;
-        }
-
-        /* Chart grid */
-        .grid-3 {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 16px;
-        }
-        @media (min-width: 1100px) {
-          .grid-3 {
-            grid-template-columns: 1fr 1fr 1fr;
-          }
-        }
-
-        /* Card */
-        .card {
-          background: var(--card);
-          border: 1px solid var(--border);
-          border-radius: 16px;
-          padding: 16px;
-          box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
-        }
-        .card h3 {
-          margin: 2px 0 10px;
-          font-size: 1.05rem;
-          font-weight: 700;
-          color: var(--text);
-        }
-
-        /* Table */
-        .table-wrap {
-          overflow: auto;
-          border-radius: 12px;
-        }
-        table {
-          width: 100%;
-          border-collapse: collapse;
-          margin-top: 6px;
-        }
-        th,
-        td {
-          border-bottom: 1px solid var(--border);
-          padding: 12px 12px;
-          text-align: left;
-        }
-        th {
-          color: var(--muted);
-          font-weight: 600;
-          font-size: 0.9rem;
-        }
-        tr:hover td {
-          background: #fafbfe;
-        }
-        .company {
-          font-weight: 700;
-        }
-        .sub {
-          font-size: 0.85rem;
-          color: var(--muted);
-        }
-
-        /* Error styling */
-        .error {
-          background-color: #fee2e2;
-          color: #dc2626;
-          padding: 12px 16px;
-          border-radius: 8px;
-          border: 1px solid #fecaca;
-          margin-bottom: 16px;
-          font-weight: 600;
-        }
-      `}</style>
     </div>
   );
 }

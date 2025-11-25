@@ -46,8 +46,6 @@ body {
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
   font-family: var(--font-inter), sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -72,6 +70,9 @@ body {
   .auth-bg {
     background: transparent;
   }
+}
+.sb-avatar .sb-avatar__text {
+  background: var(--primary) !important;
 }
 
 @media screen and (max-width: 1200px) {
@@ -1423,7 +1424,7 @@ a {
 }
 
 .main_content {
-  padding-left: 270px;
+  /* padding-left: 270px; */
   width: 100%;
   padding-top: 0px !important;
   transition: 0.5s;

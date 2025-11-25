@@ -14,19 +14,19 @@ export default function ClientShell({ children, authToken }: ClientShellProps) {
   const { isMiniSidebar } = useUI();
 
   return (
-    <>
-      {authToken && <Nav />}
+    <div className="container">
+      {/* {authToken && <Nav />} */}
 
       {authToken ? (
         <main
           className={`main_content ${isMiniSidebar ? "full_main_content" : ""}`}
         >
           <Header />
-          {children}
+          <div className="border-start border-end"> {children}</div>
         </main>
       ) : (
         <>{children}</>
       )}
-    </>
+    </div>
   );
 }

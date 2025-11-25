@@ -15,6 +15,7 @@
     "next-auth": "^4.24.11",
     "openai": "^6.8.1",
     "react": "19.1.0",
+    "react-avatar": "^3.9.4",
     "react-bootstrap": "^2.10.10",
     "react-dom": "19.1.0",
     "recharts": "^3.1.2",
