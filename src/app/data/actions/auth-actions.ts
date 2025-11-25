@@ -9,10 +9,10 @@ import {
 } from "@/app/data/actions/auth-service";
 
 function extractStrapiErrors(responseData: any): string[] {
-  if (!responseData) return ["Unknown error"]; 
+  if (!responseData) return ["Unknown error"];
   // Strapi v4 error shape: { error: { message, details: { errors: [{ message }] } } }
   const err = responseData.error;
-  if (!err) return ["Unknown error"]; 
+  if (!err) return ["Unknown error"];
   const messages: string[] = [];
   if (typeof err.message === "string" && err.message.trim()) {
     messages.push(err.message);
@@ -25,7 +25,7 @@ function extractStrapiErrors(responseData: any): string[] {
       }
     }
   }
-  return messages.length > 0 ? messages : ["Invalid username or password"]; 
+  return messages.length > 0 ? messages : ["Invalid username or password"];
 }
 
 // Cookie configuration
