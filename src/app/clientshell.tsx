@@ -21,7 +21,10 @@ export default function ClientShell({ children, authToken }: ClientShellProps) {
           className={`main_content ${isMiniSidebar ? "full_main_content" : ""}`}
         >
           <Header />
-          <div className="border-start border-end border-bottom">
+          <div
+            className="border-start border-end border-bottom"
+            style={{ background: "#f7f8fc" }}
+          >
             {" "}
             {children}
           </div>

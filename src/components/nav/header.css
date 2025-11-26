@@ -188,6 +188,9 @@
   background: #f4f6fa;
   color: #0366d6;
 }
+.profile_info .profile_info_iner::before {
+  display: none !important;
+}
 
 .hamburger-btn {
   display: none;

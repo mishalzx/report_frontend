@@ -4,13 +4,13 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import ReactAvatar from "react-avatar";
 import {
-  FiHome,
-  FiUsers,
   FiEdit,
+  FiHelpCircle,
+  FiHome,
   FiMail,
   FiMessageCircle,
-  FiHelpCircle,
   FiSearch,
+  FiUsers,
 } from "react-icons/fi";
 import logo from "../../../public/Ariflex Logo-01.png";
 import { useUI } from "../ui/UIContext";
@@ -68,6 +68,11 @@ export default function Header() {
   const [expandedMenus, setExpandedMenus] = useState<{ [k: number]: boolean }>(
     {}
   );
+
+  // State for profile dropdown
+  const [profileOpen, setProfileOpen] = useState(false);
+  const profileRef = useRef<HTMLDivElement>(null);
+  useOnClickOutside(profileRef, () => setProfileOpen(false));
 
   // For mobile nav/submenu expand/collapse
   function toggleMenu(i: number) {
@@ -163,12 +168,12 @@ export default function Header() {
             style={{ textDecoration: "none", minWidth: 80 }}
           >
             <Image height={36} src={logo} alt="Ariflex Logo" priority />
-            <span
+            {/* <span
               className="d-none d-md-inline ms-2 fs-5 fw-bold"
               style={{ color: "#1e293b" }}
             >
               Ariflex
-            </span>
+            </span> */}
           </Link>
         </div>
         {/* Hamburger for mobile */}
@@ -452,8 +457,21 @@ export default function Header() {
                   minWidth: 72,
                   width: mobileMenuOpen ? "100%" : undefined,
                   justifyContent: mobileMenuOpen ? "flex-start" : undefined,
+                  cursor: "pointer",
                 }}
                 tabIndex={0}
+                ref={profileRef}
+                onClick={() => setProfileOpen((open) => !open)}
+                onBlur={(e) => {
+                  if (
+                    e.relatedTarget &&
+                    profileRef.current &&
+                    profileRef.current.contains(e.relatedTarget as Node)
+                  ) {
+                    return;
+                  }
+                  setProfileOpen(false);
+                }}
               >
                 <ReactAvatar name="Mishal" size="40" round />
                 <div
@@ -464,43 +482,37 @@ export default function Header() {
                     boxShadow: "0 2px 12px 0 rgba(0,0,0,.10)",
                     borderRadius: 10,
                     right: 0,
-                    minWidth: 180,
+                    minWidth: 250,
                     padding: 10,
                     top: 46,
                     zIndex: 1020,
-                    display: "none",
+                    display: profileOpen ? "block" : "none",
                   }}
+                  tabIndex={-1}
                 >
-                  <div className="profile_author_name">
-                    <p className="mb-1 small" style={{ fontSize: 13 }}>
-                      mishal@gmail.com
-                    </p>
-                    <h5 className="mb-2 fw-semibold" style={{ fontSize: 16 }}>
-                      Mishal
-                    </h5>
+                  <div className=" d-flex gap-2 align-items-start p-3 border-bottom">
+                    <ReactAvatar name="Mishal" size="40" round />
+
+                    <div>
+                      <h6 className="fw-semibold text-dark">Mishal</h6>
+                      <h6 className="text-dark mb-0 ">mishal@gmail.com</h6>
+                    </div>
                   </div>
+
                   <div className="profile_info_details d-flex flex-column gap-1 mt-2">
-                    <a
-                      href="#"
-                      style={{ textDecoration: "none", fontSize: 14 }}
-                    >
+                    <a href="#" className=" text-decoration-none fs-16 px-2">
                       My Profile
                     </a>
-                    <a
-                      href="#"
-                      style={{ textDecoration: "none", fontSize: 14 }}
-                    >
+                    <a href="#" className=" text-decoration-none fs-16 px-2">
                       Settings
                     </a>
                     <form action="/api/logout" method="post">
                       <button
                         type="submit"
-                        className="btn b-0 p-0 text-danger"
+                        className="btn b-0 p-0 text-danger w-100 d-flex ms-2 fw-semibold"
                         style={{
                           background: "none",
-                          fontSize: 14,
-                          marginTop: 6,
-                          fontWeight: 500,
+                          fontSize: 16,
                         }}
                       >
                         Log Out

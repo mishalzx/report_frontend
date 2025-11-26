@@ -1,6 +1,8 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
+import "./Module1survey.css";
+import { RiResetLeftFill } from "react-icons/ri";
 
 /* ---------------- Types ---------------- */
 type Question = { part: string; q: string; answers: string[] };
@@ -252,7 +254,6 @@ const QUESTIONS: Question[] = [
     ],
   },
 ];
-
 
 /* ---------------- Utilities ---------------- */
 const emailOk = (e: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e || "");
@@ -660,10 +661,10 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
       alert(
         `✅ Survey submitted successfully!\n\nStatus: ${g.label}\nScore: ${payload.score.percentage}%\n\nRedirecting to dashboard...`
       );
-      
+
       // Clear form data after successful submission
       clearFormData();
-      
+
       // Redirect to dashboard after successful submission
       setTimeout(() => {
         router.push("/dashboard");
@@ -679,19 +680,28 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
       {/* Top bar */}
       <div className="topbar">
         <div className="brand">
-          <div className="title">Ariflex Diagnostic App</div>
-          <div className="subtitle">
+          <h3 className=" fw-semibold letter-spacing">
+            Ariflex Diagnostic App
+          </h3>
+          <p className="muted mb-0">
             Solid speedometers • Anchor lenses • Adaptive questions • Client
             report at the end
-          </div>
+          </p>
         </div>
-        <button className="ghost" onClick={resetAll} title="Reset all answers">
-          ↻ Reset
+        <button
+          className="ghost d-flex gap-2 align-items-center"
+          onClick={resetAll}
+          title="Reset all answers"
+        >
+          <span>
+            <RiResetLeftFill size={24} />
+          </span>{" "}
+          Reset
         </button>
       </div>
 
       {/* Progress */}
-      <div className="progress-wrap" aria-label="progress">
+      <div className="progress-wrap my-4" aria-label="progress">
         <div className="progress-outer">
           <div
             className="progress-inner"
@@ -704,21 +714,22 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
       </div>
 
       {/* Section header */}
-      <div className="section">
-        <h2>{partName}</h2>
-        {partSubtitle && <p className="muted">{partSubtitle}</p>}
+      <div className="section mb-4">
+        <h3 className=" fw-semibold letter-spacing">{partName}</h3>
+        {partSubtitle && <p className="muted mb-0">{partSubtitle}</p>}
       </div>
 
       {/* Step 0: Participant Details */}
       {step === 0 && (
         <section className="card panel">
           <div className="grid-2">
-            <div className="field">
-              <label>
-                Company Name <span className="hint">(required)</span>
+            <div className="field mb-4">
+              <label className="form-label text-dark">
+                Company Name <span className="primary-text">*</span>
               </label>
               <input
                 type="text"
+                className="form-control"
                 value={org.companyName}
                 onChange={(e) =>
                   setOrg({ ...org, companyName: e.target.value })
@@ -726,10 +737,11 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
                 placeholder="e.g., Raweyah"
               />
             </div>
-            <div className="field">
-              <label>Contact Person</label>
+            <div className="field mb-4">
+              <label className="form-label text-dark">Contact Person</label>
               <input
                 type="text"
+                className="form-control"
                 value={org.contactPerson}
                 onChange={(e) =>
                   setOrg({ ...org, contactPerson: e.target.value })
@@ -737,30 +749,32 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
                 placeholder="e.g., Mishal"
               />
             </div>
-            <div className="field">
-              <label>
-                Email <span className="hint">(required)</span>
+            <div className="field mb-4">
+              <label className="form-label text-dark">
+                Email Address <span className="primary-text">*</span>
               </label>
               <input
                 type="email"
+                className="form-control"
                 autoComplete="email"
                 value={org.email}
                 onChange={(e) => setOrg({ ...org, email: e.target.value })}
                 placeholder="you@company.com"
               />
             </div>
-            <div className="field">
-              <label>Phone</label>
+            <div className="field mb-4">
+              <label className="form-label text-dark">Phone</label>
               <input
                 type="tel"
+                className="form-control"
                 value={org.phone}
                 onChange={(e) => setOrg({ ...org, phone: e.target.value })}
                 placeholder="+966…"
               />
             </div>
-            <div className="field">
-              <label>
-                Business Type <span className="hint">(required)</span>
+            <div className="field mb-4">
+              <label className="form-label text-dark">
+                Business Type <span className="primary-text">*</span>
               </label>
               <select
                 value={org.businessType}
@@ -772,7 +786,9 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
                 <option>Agriculture, Forestry and Fishing</option>
                 <option>Mining and Quarrying</option>
                 <option>Manufacturing</option>
-                <option>Electricity, Gas, Steam and Air Conditioning Supply</option>
+                <option>
+                  Electricity, Gas, Steam and Air Conditioning Supply
+                </option>
                 <option>Water Supply, Sewerage and Waste Management</option>
                 <option>Construction</option>
                 <option>Wholesale and Retail Trade</option>
@@ -781,7 +797,9 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
                 <option>Information and Communication</option>
                 <option>Financial and Insurance Activities</option>
                 <option>Real Estate Activities</option>
-                <option>Professional, Scientific and Technical Activities</option>
+                <option>
+                  Professional, Scientific and Technical Activities
+                </option>
                 <option>Administrative and Support Service Activities</option>
                 <option>Public Administration and Defense</option>
                 <option>Education</option>
@@ -792,10 +810,13 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
               </select>
             </div>
             {org.businessType === "Other" && (
-              <div className="field">
-                <label>Other business type</label>
+              <div className="field mb-4">
+                <label className="form-label text-dark">
+                  Other business type <span className="primary-text">*</span>
+                </label>
                 <input
                   type="text"
+                  className="form-control"
                   value={org.businessTypeOther}
                   onChange={(e) =>
                     setOrg({ ...org, businessTypeOther: e.target.value })
@@ -805,41 +826,45 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
               </div>
             )}
             <div className="field full">
-              <label>
-                Survey By <span className="hint">(required)</span>
+              <label className="form-label text-dark">
+                Survey By <span className="primary-text">*</span>
               </label>
-              <div className="row">
-                <label className="radio">
-                  <input
-                    type="radio"
-                    checked={org.surveyBy === "company"}
-                    onChange={() =>
-                      setOrg({
-                        ...org,
-                        surveyBy: "company",
-                        department: "",
-                        departmentOther: "",
-                      })
-                    }
-                  />
-                  <span>By the Company</span>
+              <div className="d-flex gap-3 mt-2">
+                <input
+                  type="radio"
+                  id="test1"
+                  name="radio-group"
+                  checked={org.surveyBy === "company"}
+                  onChange={() =>
+                    setOrg({
+                      ...org,
+                      surveyBy: "company",
+                      department: "",
+                      departmentOther: "",
+                    })
+                  }
+                />
+                <label className="text-dark" htmlFor="test1">
+                  By the Company
                 </label>
-                <label className="radio">
-                  <input
-                    type="radio"
-                    checked={org.surveyBy === "department"}
-                    onChange={() => setOrg({ ...org, surveyBy: "department" })}
-                  />
-                  <span>By department</span>
+                <input
+                  type="radio"
+                  id="test2"
+                  name="radio-group"
+                  checked={org.surveyBy === "department"}
+                  onChange={() => setOrg({ ...org, surveyBy: "department" })}
+                />
+                <label className="text-dark" htmlFor="test2">
+                  By the department
                 </label>
               </div>
             </div>
             {org.surveyBy === "department" && (
               <div className="field full">
-                <label>
-                  Department <span className="hint">(required)</span>
+                <label className="form-label text-dark">
+                  Department <span className="primary-text">*</span>
                 </label>
-                <div className="grid-2">
+                <div>
                   <select
                     value={org.department}
                     onChange={(e) =>
@@ -868,6 +893,7 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
                   {org.department === "Other" && (
                     <input
                       type="text"
+                      className="form-control"
                       placeholder="Other department"
                       value={org.departmentOther}
                       onChange={(e) =>
@@ -879,7 +905,7 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
               </div>
             )}
           </div>
-          <p className="muted" style={{ marginTop: 8 }}>
+          <p className="muted mt-5">
             Details are stored locally and included in the Strapi payload.
           </p>
         </section>
@@ -893,12 +919,12 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
             const current = answers[qi];
             return (
               <div key={qi} className="q-card">
-                <div className="q-text">{q.q}</div>
-                <div className="options">
+                <div className="q-text mb-3">{q.q}</div>
+                <div className=" d-flex gap-3 align-items-center flex-wrap">
                   {q.answers.map((label, i) => (
                     <label
                       key={i}
-                      className={`opt ${current === i ? "active" : ""}`}
+                      className={`opt  mb-3 ${current === i ? "active" : ""}`}
                     >
                       <input
                         type="radio"
@@ -927,337 +953,34 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
       )}
 
       {/* Footer nav */}
-      <div className="footer-nav">
-        <div className="actions buttonsection">
+      <div className="footer-nav mt-4">
+        <button
+          className="ghost d-flex gap-2 align-items-center"
+          disabled={step === 0}
+          onClick={() => setStep((s) => Math.max(0, s - 1))}
+        >
+          ‹ Back
+        </button>
+        {step < stepsCount ? (
           <button
-            className="nav ghost dark"
-            disabled={step === 0}
-            onClick={() => setStep((s) => Math.max(0, s - 1))}
+            className="ghost d-flex gap-2 align-items-center"
+            disabled={!pageValid}
+            onClick={() => setStep((s) => Math.min(stepsCount, s + 1))}
           >
-            ‹ Back
+            Next ›
           </button>
-          {step < stepsCount ? (
-            <button
-              className=" btn"
-              disabled={!pageValid}
-              onClick={() => setStep((s) => Math.min(stepsCount, s + 1))}
-            >
-              Next ›
-            </button>
-          ) : (
-            <button
-              className="nav primary"
-              disabled={submitting || !pageValid}
-              onClick={onSubmit}
-            >
-              {submitting ? "Submitting…" : "Submit Module 1"}
-            </button>
-          )}
-        </div>
+        ) : (
+          <button
+            className="ghost d-flex gap-2 align-items-center"
+            disabled={submitting || !pageValid}
+            onClick={onSubmit}
+          >
+            {submitting ? "Submitting…" : "Submit Module 1"}
+          </button>
+        )}
       </div>
 
       {/* Styles */}
-      <style jsx>{`
-        :root {
-          --ink: #0b1220;
-          --muted: #6b7a99;
-          --bg: #f7f8fc;
-          --panel: #ffffff;
-          --border: #e6e9f2;
-          --accent: #0b72ff;
-        }
-        * {
-          box-sizing: border-box;
-        }
-        body {
-          background: var(--bg);
-        }
-        .shell {
-          max-width: 960px;
-          margin: 0 auto;
-          padding: 22px;
-        }
-        .topbar {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          margin-bottom: 10px;
-        }
-        .title {
-          font-weight: 800;
-        }
-        .subtitle {
-          color: var(--muted);
-          font-size: 0.9rem;
-        }
-        .ghost {
-          background: #fff;
-          border: 1px solid var(--border);
-          border-radius: 10px;
-          padding: 10px 12px;
-          cursor: pointer;
-        }
-        .ghost.dark {
-          background: #0b1220;
-          color: #fff;
-          border-color: #0b1220;
-        }
-        .brand .title {
-          font-size: 1.25rem;
-        }
-        .progress-wrap {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          margin: 10px 0 18px;
-        }
-        .progress-outer {
-          flex: 1;
-          height: 10px;
-          background: #edf1f7;
-          border-radius: 999px;
-          overflow: hidden;
-        }
-        .progress-inner {
-          height: 100%;
-          background: ${g.gradient};
-        }
-        .step-label {
-          color: var(--muted);
-          font-size: 0.9rem;
-          min-width: max-content;
-        }
-        .section h2 {
-          margin: 0 0 4px;
-        }
-        .muted {
-          color: var(--muted);
-        }
-        .card.panel {
-          background: var(--panel);
-          border: 1px solid var(--border);
-          border-radius: 14px;
-          padding: 16px;
-        }
-        .grid-2 {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 14px;
-        }
-        @media (min-width: 900px) {
-          .grid-2 {
-            grid-template-columns: 1fr 1fr;
-          }
-        }
-        .field {
-          display: flex;
-          flex-direction: column;
-          gap: 6px;
-        }
-        .row {
-          display: flex;
-          gap: 14px;
-          flex-wrap: wrap;
-        }
-        .radio {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-        }
-        .hint {
-          font-size: 0.85rem;
-          color: var(--muted);
-        }
-        .q-list {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-        }
-        .q-card {
-          background: var(--panel);
-          border: 1px solid var(--border);
-          border-radius: 14px;
-          padding: 16px;
-        }
-        .q-text {
-          font-weight: 600;
-          margin-bottom: 10px;
-        }
-        .options {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 10px;
-        }
-        .opt {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 7px 20px;
-          border: 1px solid #e2e2e2;
-          border-radius: 12px;
-          background: #fff;
-          cursor: pointer;
-        }
-        .opt input {
-          display: none;
-        }
-        .opt.active {
-          border-color: var(--ink);
-          box-shadow: 0 0 0 2px #000000;
-        }
-        .meta {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          margin-top: 8px;
-        }
-        .chip {
-          background: #eef4ff;
-          color: #2846a0;
-          border: 1px solid #d7e5ff;
-          padding: 3px 8px;
-          border-radius: 999px;
-          font-size: 0.8rem;
-        }
-        .mini {
-          color: #556bad;
-          text-decoration: none;
-          font-size: 0.85rem;
-        }
-        .footer-nav {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin: 18px 0;
-        }
-        .nav {
-          padding: 12px 16px;
-          border-radius: 12px;
-          border: 1px solid var(--border);
-          cursor: pointer;
-        }
-        .nav.primary {
-          background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-          color: #fff;
-          border-color: #4f46e5;
-          font-weight: 700;
-          font-size: 16px;
-          padding: 16px 32px;
-          border-radius: 12px;
-          box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
-          transition: all 0.3s ease;
-          position: relative;
-          overflow: hidden;
-        }
-        
-        .nav.primary:hover:not(:disabled) {
-          background: linear-gradient(135deg, #3730a3 0%, #6d28d9 100%);
-          transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
-        }
-        
-        .nav.primary:active:not(:disabled) {
-          transform: translateY(0);
-          box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
-        }
-        
-        .nav.primary:disabled {
-          background: #9ca3af;
-          border-color: #9ca3af;
-          cursor: not-allowed;
-          transform: none;
-          box-shadow: none;
-        }
-        
-        .nav.primary::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-          transition: left 0.5s;
-        }
-        
-        .nav.primary:hover::before {
-          left: 100%;
-        }
-        .nav:disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
-        }
-        input,
-        select {
-          background: #fff;
-          color: #0f172a;
-          border: 1px solid #e6e8f0;
-          border-radius: 10px;
-          padding: 10px;
-          font-size: 14px;
-          outline: none;
-          transition: border-color 0.2s ease;
-        }
-        
-        input:focus,
-        select:focus {
-          border-color: #4f46e5;
-          box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
-        }
-        
-        input::placeholder {
-          color: #64748b;
-        }
-        
-        /* Ensure all form elements have proper text color */
-        textarea {
-          background: #fff;
-          color: #0f172a;
-          border: 1px solid #e6e8f0;
-          border-radius: 10px;
-          padding: 10px;
-          font-size: 14px;
-          outline: none;
-          transition: border-color 0.2s ease;
-        }
-        
-        textarea:focus {
-          border-color: #4f46e5;
-          box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
-        }
-        
-        textarea::placeholder {
-          color: #64748b;
-        }
-        
-        /* Override any inherited dark styles */
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        input[type="password"],
-        input[type="number"] {
-          background: #fff !important;
-          color: #0f172a !important;
-        }
-        
-        /* Ensure all inputs without explicit type have proper styling */
-        input:not([type]),
-        input[type=""] {
-          background: #fff !important;
-          color: #0f172a !important;
-          border: 1px solid #e6e8f0 !important;
-        }
-        
-        /* Additional specificity for form inputs */
-        .field input,
-        .field input[type="text"],
-        .field input[type="email"],
-        .field input[type="tel"] {
-          background: #fff !important;
-          color: #0f172a !important;
-          border: 1px solid #e6e8f0 !important;
-        }
-      `}</style>
     </div>
   );
 }

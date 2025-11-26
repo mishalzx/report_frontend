@@ -409,7 +409,7 @@ export default function SubmissionDetailPage() {
         <h3 className=" fw-semibold letter-spacing mb-0">
           {data.org.companyName || "Submission"}
         </h3>
-        <div className="d-flex align-items-center gap-3">
+        <div className="d-flex align-items-center gap-3 flex-wrap">
           <button
             className="json-btn d-flex align-items-center gap-2"
             onClick={() => downloadJSON(data)}
@@ -533,14 +533,18 @@ export default function SubmissionDetailPage() {
       {/* AI output / errors */}
       {aiError && (
         <section className="card">
-          <h3>AI Analysis Error</h3>
+          <h3 className=" fw-semibold letter-spacing mb-4">
+            AI Analysis Error
+          </h3>
           <div className="muted">{aiError}</div>
         </section>
       )}
 
       {aiReport && (
         <section className="card">
-          <h3>AI Diagnostic Summary</h3>
+          <h3 className=" fw-semibold letter-spacing mb-4">
+            AI Diagnostic Summary
+          </h3>
           <pre className="ai-output">{aiReport}</pre>
         </section>
       )}
