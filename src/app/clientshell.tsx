@@ -1,9 +1,8 @@
 "use client";
 
-import React from "react";
-import { useUI } from "@/components/ui/UIContext";
-import Nav from "@/components/nav/nav";
 import Header from "@/components/nav/header";
+import { useUI } from "@/components/ui/UIContext";
+import React from "react";
 
 type ClientShellProps = {
   children: React.ReactNode;
@@ -22,7 +21,10 @@ export default function ClientShell({ children, authToken }: ClientShellProps) {
           className={`main_content ${isMiniSidebar ? "full_main_content" : ""}`}
         >
           <Header />
-          <div className="border-start border-end"> {children}</div>
+          <div className="border-start border-end border-bottom">
+            {" "}
+            {children}
+          </div>
         </main>
       ) : (
         <>{children}</>

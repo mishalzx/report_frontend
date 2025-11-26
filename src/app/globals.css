@@ -62,6 +62,49 @@ body {
   margin: 0;
 }
 
+.fs-9 {
+  font-size: var(--fs9);
+}
+.fs-10 {
+  font-size: var(--fs10);
+}
+
+.fs-11 {
+  font-size: var(--fs11);
+}
+
+.fs-12 {
+  font-size: var(--fs12);
+}
+
+.fs-13 {
+  font-size: var(--fs13);
+}
+
+.fs-14 {
+  font-size: var(--fs14);
+}
+.fs-15 {
+  font-size: var(--fs15);
+}
+.fs-16 {
+  font-size: var(--fs16);
+}
+
+.fs-18 {
+  font-size: var(--fs18);
+}
+
+.fs-20 {
+  font-size: var(--fs20);
+}
+.fs-26 {
+  font-size: var(--fs26);
+}
+.fs-24 {
+  font-size: var(--fs24);
+}
+
 /* ------------------------------------------------new ui work-------------------- */
 .auth-bg {
   background: #fafafa;

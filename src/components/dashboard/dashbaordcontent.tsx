@@ -1,5 +1,15 @@
 "use client";
 
+export const KPIS_COLORS = [
+  "#06D6A0",
+  "#ffb300",
+  "#e53935",
+  "#38bdf8",
+  "#7f56b3",
+  "#EF476F",
+  "#fca5a5",
+];
+
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { Table } from "react-bootstrap";
@@ -19,6 +29,8 @@ import {
   YAxis,
 } from "recharts";
 import "./Dashboard.css";
+import { IoEyeOutline } from "react-icons/io5";
+import { MdOutlineFileDownload } from "react-icons/md";
 
 // ------------- Config -------------
 const STRAPI_URL =
@@ -437,13 +449,16 @@ export default function DashboardPage({
 
   const COLORS = ["#6366f1", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"];
 
+  // === Use donut chart colors for KPIs background ===
+  const kpiBgColors = KPIS_COLORS;
+
   return (
     <div className="wrap">
       <header className="dash-header">
         <div>
-          <h4 className=" fw-semibold letter-spacing">
+          <h3 className=" fw-semibold letter-spacing">
             Operational Maturity Dashboard
-          </h4>
+          </h3>
           <p className="muted ">
             Live analytics from Strapi survey submissions.
           </p>
@@ -496,32 +511,46 @@ export default function DashboardPage({
 
       {/* KPIs */}
       <section className="kpis">
-        <div className="kpi">
-          <div className="kpi-label">Submissions</div>
-          <div className="kpi-value">{loading ? "…" : kpis.count}</div>
-        </div>
-        <div className="kpi">
-          <div className="kpi-label">Avg Score</div>
-          <div className="kpi-value">{loading ? "…" : pct(kpis.avgScore)}</div>
-        </div>
-        <div className="kpi">
-          <div className="kpi-label">Best / Worst</div>
-          <div className="kpi-value">
-            {loading ? "…" : `${pct(kpis.best)} / ${pct(kpis.worst)}`}
+        {[
+          {
+            label: "Submissions",
+            value: loading ? "…" : kpis.count,
+          },
+          {
+            label: "Avg Score",
+            value: loading ? "…" : pct(kpis.avgScore),
+          },
+          {
+            label: "Best / Worst",
+            value: loading ? "…" : `${pct(kpis.best)} / ${pct(kpis.worst)}`,
+          },
+          {
+            label: "Avg Red Flags",
+            value: loading ? "…" : kpis.avgRed.toFixed(1),
+          },
+          {
+            label: "Avg Completion",
+            value: loading ? "…" : `${Math.round(kpis.avgCompletion)}/19`,
+          },
+        ].map((kpi, i) => (
+          <div
+            className="kpi"
+            key={kpi.label}
+            style={{
+              background: kpiBgColors[i % kpiBgColors.length],
+              color:
+                i === 1 || i === 3 || i === 4 // for yellow, pink, light blue backgrounds, use dark font
+                  ? "#222"
+                  : "#fff",
+              borderRadius: 3,
+              boxShadow: "0 1px 6px #0001",
+              transition: "background .2s",
+            }}
+          >
+            <div className="kpi-label text-white fs-20">{kpi.label}</div>
+            <div className="kpi-value text-white fs-24">{kpi.value}</div>
           </div>
-        </div>
-        <div className="kpi">
-          <div className="kpi-label">Avg Red Flags</div>
-          <div className="kpi-value">
-            {loading ? "…" : kpis.avgRed.toFixed(1)}
-          </div>
-        </div>
-        <div className="kpi">
-          <div className="kpi-label">Avg Completion</div>
-          <div className="kpi-value">
-            {loading ? "…" : `${Math.round(kpis.avgCompletion)}/19`}
-          </div>
-        </div>
+        ))}
       </section>
 
       {/* Charts */}
@@ -658,18 +687,18 @@ export default function DashboardPage({
                       <td>
                         <button
                           onClick={() => downloadJSON(r)}
-                          className="json-btn"
+                          className="primary-text bg-transparent border-0"
                           title="Download JSON"
                         >
-                          📄
+                          <MdOutlineFileDownload size={30} />
                         </button>
                       </td>
                       <td>
                         <Link
                           href={`/submissionDetailPage/${r.documentId}`}
-                          className="view-btn"
+                          className=" text-decoration-none primary-text"
                         >
-                          View
+                          <IoEyeOutline size={30} />
                         </Link>
                       </td>
                     </tr>

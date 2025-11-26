@@ -3,10 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import ReactAvatar from "react-avatar";
-import code from "../../../public/2.svg";
+import {
+  FiHome,
+  FiUsers,
+  FiEdit,
+  FiMail,
+  FiMessageCircle,
+  FiHelpCircle,
+  FiSearch,
+} from "react-icons/fi";
 import logo from "../../../public/Ariflex Logo-01.png";
-import dash from "../../../public/dashboard.svg";
-import search from "../../../public/icon_search.svg";
 import { useUI } from "../ui/UIContext";
 import { useOnClickOutside } from "../ui/useOnClickOutside";
 import "./header.css";
@@ -14,25 +20,40 @@ import "./header.css";
 const MENU = [
   {
     label: "Home",
-    icon: dash,
+    icon: <FiHome className="me-2" size={18} />,
     href: "/dashboard",
   },
   {
     label: "User Management",
-    icon: dash,
+    icon: <FiUsers className="me-2" size={18} />,
     children: [{ label: "Questionnaire", href: "/questionnaire" }],
   },
   {
     label: "Application",
-    icon: code,
+    icon: <FiEdit className="me-2" size={18} />,
     children: [
-      { label: "Editor", href: "/editor.html" },
-      { label: "Mail Box", href: "/mail_box.html" },
-      { label: "Chat", href: "/chat.html" },
-      { label: "FAQ", href: "/faq.html" },
+      {
+        label: "Editor",
+        href: "/editor.html",
+        icon: <FiEdit className="me-2" size={18} />,
+      },
+      {
+        label: "Mail Box",
+        href: "/mail_box.html",
+        icon: <FiMail className="me-2" size={18} />,
+      },
+      {
+        label: "Chat",
+        href: "/chat.html",
+        icon: <FiMessageCircle className="me-2" size={18} />,
+      },
+      {
+        label: "FAQ",
+        href: "/faq.html",
+        icon: <FiHelpCircle className="me-2" size={18} />,
+      },
     ],
   },
-  // add more items as needed
 ];
 
 export default function Header() {
@@ -269,12 +290,8 @@ export default function Header() {
                               : undefined
                           }
                         >
-                          <Image
-                            src={item.icon}
-                            height={18}
-                            alt=""
-                            className="me-2"
-                          />
+                          {/* Use React icon instead of Image */}
+                          {item.icon}
                           <span>{item.label}</span>
                           <span className="ms-1" style={{ fontSize: 10 }}>
                             <i className="ti-angle-down" />
@@ -334,7 +351,7 @@ export default function Header() {
                               <li key={c.href} style={{ width: "100%" }}>
                                 <Link
                                   href={c.href}
-                                  className="dropdown-item"
+                                  className="dropdown-item d-flex align-items-center"
                                   style={{
                                     padding: "8px 16px",
                                     fontSize: 15,
@@ -347,6 +364,7 @@ export default function Header() {
                                   }}
                                   onClick={() => setMobileMenuOpen(false)}
                                 >
+                                  {/* Use React icon for submenu if present */}
                                   {c.label}
                                 </Link>
                               </li>
@@ -365,12 +383,8 @@ export default function Header() {
                         }}
                         onClick={() => setMobileMenuOpen(false)}
                       >
-                        <Image
-                          src={item.icon}
-                          height={18}
-                          alt=""
-                          className="me-2"
-                        />
+                        {/* Use React icon instead of Image */}
+                        {item.icon}
                         <span>{item.label}</span>
                       </Link>
                     )}
@@ -424,7 +438,8 @@ export default function Header() {
                       className="serach_button bg-transparent border-0 pt-1"
                       onClick={() => setSearchOpen(true)}
                     >
-                      <Image src={search} alt="" width={18} />
+                      {/* Use React Icon instead of Image */}
+                      <FiSearch size={18} />
                     </button>
                   </form>
                 </div>

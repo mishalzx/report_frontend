@@ -1,19 +1,23 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 import {
-  ResponsiveContainer,
-  RadialBarChart,
-  RadialBar,
-  Tooltip,
-  BarChart,
   Bar,
+  BarChart,
   CartesianGrid,
+  RadialBar,
+  RadialBarChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
+
+import "./SubmissionDetailPage.css";
+import { HiArrowNarrowLeft } from "react-icons/hi";
+import { MdOutlineFileDownload } from "react-icons/md";
 
 const STRAPI_URL =
   process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
@@ -275,10 +279,7 @@ export default function SubmissionDetailPage() {
     })();
   }, [documentId]);
 
-  const scorePct = useMemo(
-    () => num(data?.score?.percentage),
-    [data]
-  );
+  const scorePct = useMemo(() => num(data?.score?.percentage), [data]);
 
   const partRows = useMemo(() => {
     const map = new Map<string, { points: number; max: number }>();
@@ -351,32 +352,17 @@ export default function SubmissionDetailPage() {
     return (
       <div className="wrap">
         <div className="topbar">
-          <Link className="back" href="/dashboard">
-            ← Back to Dashboard
+          <Link
+            className=" text-decoration-none text-dark d-flex align-items-center gap-2 fw-medium"
+            href="/dashboard"
+          >
+            <span>
+              <HiArrowNarrowLeft size={24} />
+            </span>
+            Back to Dashboard
           </Link>
         </div>
         <div className="card">Loading…</div>
-        <style jsx>{`
-          .wrap {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 26px 22px 64px;
-          }
-          .topbar {
-            margin-bottom: 10px;
-          }
-          .back {
-            color: #4f46e5;
-            text-decoration: none;
-            font-weight: 600;
-          }
-          .card {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 16px;
-            border: 1px solid #e6e8f0;
-          }
-        `}</style>
       </div>
     );
   }
@@ -385,8 +371,14 @@ export default function SubmissionDetailPage() {
     return (
       <div className="wrap">
         <div className="topbar">
-          <Link className="back" href="/dashboard">
-            ← Back to Dashboard
+          <Link
+            className=" text-decoration-none text-dark d-flex align-items-center gap-2 fw-medium"
+            href="/dashboard"
+          >
+            <span>
+              <HiArrowNarrowLeft size={24} />
+            </span>
+            Back to Dashboard
           </Link>
         </div>
         <div className="card">
@@ -394,30 +386,6 @@ export default function SubmissionDetailPage() {
           <div className="muted">{error || "Unknown error"}</div>
           <div className="muted">documentId: {documentId}</div>
         </div>
-        <style jsx>{`
-          .wrap {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 26px 22px 64px;
-          }
-          .topbar {
-            margin-bottom: 10px;
-          }
-          .back {
-            color: #4f46e5;
-            text-decoration: none;
-            font-weight: 600;
-          }
-          .card {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 16px;
-            border: 1px solid #e6e8f0;
-          }
-          .muted {
-            color: #64748b;
-          }
-        `}</style>
       </div>
     );
   }
@@ -426,61 +394,77 @@ export default function SubmissionDetailPage() {
   return (
     <div className="wrap">
       <div className="topbar">
-        <Link className="back" href="/dashboard">
-          ← Back to Dashboard
+        <Link
+          className=" text-decoration-none text-dark d-flex align-items-center gap-2 fw-medium"
+          href="/dashboard"
+        >
+          <span>
+            <HiArrowNarrowLeft size={24} />
+          </span>
+          Back to Dashboard
         </Link>
       </div>
 
-      <header className="header">
+      <div className=" d-flex align-items-center flex-wrap justify-content-between my-4">
+        <h3 className=" fw-semibold letter-spacing mb-0">
+          {data.org.companyName || "Submission"}
+        </h3>
+        <div className="d-flex align-items-center gap-3">
+          <button
+            className="json-btn d-flex align-items-center gap-2"
+            onClick={() => downloadJSON(data)}
+          >
+            <span>
+              <MdOutlineFileDownload size={30} />
+            </span>
+            Download JSON
+          </button>
+
+          <button
+            className="ai-btn"
+            onClick={() => handleConnectWithAI(data)}
+            disabled={aiLoading}
+          >
+            <span className="fs-20">🤖</span>{" "}
+            {aiLoading ? "Connecting…" : " Connect with our AI"}
+          </button>
+        </div>
+      </div>
+
+      <header className=" d-flex align-items-center flex-wrap justify-content-between mb-4">
         <div>
-          <h1 className="text-capitalize">{data.org.companyName || "Submission"}</h1>
-          <p className="muted">
-            Contact: {data.org.contactPerson || "—"} ·{" "}
-            {data.org.email || "—"} · {data.org.phone || "—"}
+          <p className="muted mb-0">
+            <span className=" fw-semibold letter-spacing text-dark pe-2">
+              Contact:
+            </span>
+            {data.org.contactPerson || "—"} · {data.org.email || "—"} ·{" "}
+            {data.org.phone || "—"}
           </p>
-          <p className="muted">
-            Business Type: {businessTypeOf(data.org)} · Submitted:{" "}
+          <p className="muted mb-0">
+            <span className=" fw-semibold letter-spacing text-dark pe-2">
+              Business Type:
+            </span>
+            {businessTypeOf(data.org)} · Submitted:{" "}
             {fmtDate(data.createdAt || data.submittedAt || data.timestamp)}
           </p>
         </div>
 
-        <div className="header-right">
+        <div>
           <div className="badges">
-            <span className="badge score">
-              Score: {pct(scorePct || 0)}
-            </span>
-            <span className="badge red">
-              Red Flags: {num(data.redFlags)}
-            </span>
+            <span className="badge score">Score: {pct(scorePct || 0)}</span>
+            <span className="badge red">Red Flags: {num(data.redFlags)}</span>
             <span className="badge comp">
               Completion: {num(data.completion)}/19
             </span>
             <span className="badge ver">v{data.version || "—"}</span>
           </div>
-
-          <div className="actions">
-            <button
-              className="json-btn"
-              onClick={() => downloadJSON(data)}
-            >
-              📄 Download JSON
-            </button>
-
-            <button
-              className="ai-btn"
-              onClick={() => handleConnectWithAI(data)}
-              disabled={aiLoading}
-            >
-              {aiLoading ? "Connecting…" : "🤖 Connect with our AI"}
-            </button>
-          </div>
         </div>
       </header>
 
       {/* Score summary */}
-      <section className="grid">
+      <section className="grid gap-4 py-4">
         <div className="card">
-          <h3>Overall Score</h3>
+          <h3 className=" fw-semibold letter-spacing mb-3">Overall Score</h3>
           <div className="radial">
             <ResponsiveContainer width="100%" height={220}>
               <RadialBarChart
@@ -488,11 +472,7 @@ export default function SubmissionDetailPage() {
                 outerRadius="100%"
                 data={[{ name: "Score", value: scorePct || 0 }]}
               >
-                <RadialBar
-                  dataKey="value"
-                  cornerRadius={8}
-                  fill="#4f46e5"
-                />
+                <RadialBar dataKey="value" cornerRadius={8} fill="#4f46e5" />
                 <Tooltip formatter={(v: any) => [`${v}%`, "Score"]} />
               </RadialBarChart>
             </ResponsiveContainer>
@@ -501,22 +481,15 @@ export default function SubmissionDetailPage() {
         </div>
 
         <div className="card">
-          <h3>Part Breakdown</h3>
+          <h3 className=" fw-semibold letter-spacing mb-3">Part Breakdown</h3>
           <div style={{ height: 240 }}>
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={partRows}>
                 <CartesianGrid strokeDasharray="3 3" opacity={0.25} />
                 <XAxis dataKey="part" />
-                <YAxis
-                  domain={[0, 100]}
-                  tickFormatter={(v: any) => `${v}%`}
-                />
+                <YAxis domain={[0, 100]} tickFormatter={(v: any) => `${v}%`} />
                 <Tooltip formatter={(v: any) => [`${v}%`, "Avg"]} />
-                <Bar
-                  dataKey="pct"
-                  radius={[8, 8, 0, 0]}
-                  fill="#10b981"
-                />
+                <Bar dataKey="pct" radius={[8, 8, 0, 0]} fill="#10b981" />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -524,16 +497,17 @@ export default function SubmissionDetailPage() {
       </section>
 
       {/* Answers */}
-      <section className="card">
-        <h3>Responses</h3>
+
+      <h3 className=" fw-semibold letter-spacing mb-4">Responses</h3>
+      <section>
         {grouped.length === 0 && (
           <div className="muted">No per-question data available.</div>
         )}
         {grouped.map(({ part, items }) => (
-          <div key={part} className="part">
-            <div className="part-title">
+          <div key={part} className="part card mb-4">
+            <h3 className="part-title fw-semibold letter-spacing">
               {(part.split("–").pop() || part).trim()}
-            </div>
+            </h3>
             <div className="qa-list">
               {items.map((q) => {
                 const answers = (q.selectedItems || [])
@@ -543,8 +517,7 @@ export default function SubmissionDetailPage() {
                 return (
                   <div key={String(q.index)} className="qa-item">
                     <div className="q">
-                      {String(q.index || "").padStart(2, "0")}.{" "}
-                      {q.question}
+                      {String(q.index || "").padStart(2, "0")}. {q.question}
                     </div>
                     <div className="a">
                       {answers.length ? answers.join(", ") : "—"}
@@ -571,202 +544,6 @@ export default function SubmissionDetailPage() {
           <pre className="ai-output">{aiReport}</pre>
         </section>
       )}
-
-      <style jsx>{`
-        :root {
-          --bg: #f7f8fc;
-          --card: #ffffff;
-          --border: #e6e8f0;
-          --text: #0f172a;
-          --muted: #64748b;
-          --indigo: #4f46e5;
-          --emerald: #10b981;
-          --red: #ef4444;
-        }
-        .wrap {
-          max-width: 1100px;
-          margin: 0 auto;
-          padding: 26px 22px 64px;
-          color: var(--text);
-        }
-        .topbar {
-          margin-bottom: 10px;
-        }
-        .back {
-          color: var(--indigo);
-          text-decoration: none;
-          font-weight: 600;
-        }
-        .back:hover {
-          text-decoration: underline;
-        }
-        .header {
-          display: flex;
-          align-items: flex-start;
-          justify-content: space-between;
-          gap: 12px;
-          margin-bottom: 14px;
-        }
-        h1 {
-          margin: 0;
-          font-size: clamp(26px, 3vw, 36px);
-          font-weight: 800;
-          letter-spacing: -0.02em;
-        }
-        .muted {
-          color: var(--muted);
-        }
-        .header-right {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-end;
-          gap: 8px;
-        }
-        .badges {
-          display: flex;
-          gap: 8px;
-          flex-wrap: wrap;
-        }
-        .badge {
-          background: var(--card);
-          border: 1px solid var(--border);
-          border-radius: 999px;
-          padding: 8px 12px;
-          font-weight: 700;
-          font-size: 0.9rem;
-        }
-        .badge.score {
-          color: var(--indigo);
-        }
-        .badge.red {
-          color: var(--red);
-        }
-        .badge.comp {
-          color: var(--emerald);
-        }
-        .badge.ver {
-          color: var(--muted);
-        }
-
-        .actions {
-          display: flex;
-          gap: 8px;
-          flex-wrap: wrap;
-        }
-
-        .json-btn {
-          background: var(--emerald);
-          color: black;
-          border: none;
-          padding: 8px 14px;
-          border-radius: 999px;
-          font-weight: 600;
-          font-size: 0.9rem;
-          cursor: pointer;
-          box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
-          transition: background 0.2s ease, transform 0.1s ease;
-        }
-        .json-btn:hover {
-          background: #059669;
-          transform: translateY(-1px);
-          color:white;
-        }
-
-        .ai-btn {
-          background: var(--indigo);
-          color: black;
-          border: none;
-          padding: 8px 14px;
-          border-radius: 999px;
-          font-weight: 600;
-          font-size: 0.9rem;
-          cursor: pointer;
-          box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
-          transition: background 0.2s ease, transform 0.1s ease,
-            opacity 0.1s ease;
-        }
-        .ai-btn:hover:not(:disabled) {
-          background: #4338ca;
-          transform: translateY(-1px);
-          color:white;
-        }
-        .ai-btn:disabled {
-          opacity: 0.7;
-          cursor: wait;
-        }
-
-        .grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 16px;
-          margin-bottom: 16px;
-        }
-        @media (min-width: 980px) {
-          .grid {
-            grid-template-columns: 1fr 1fr;
-          }
-        }
-        .card {
-          background: var(--card);
-          border: 1px solid var(--border);
-          border-radius: 16px;
-          padding: 16px;
-          box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
-          margin-bottom: 16px;
-        }
-        .card h3 {
-          margin: 0 0 10px;
-          font-size: 1.05rem;
-          font-weight: 700;
-        }
-
-        .radial {
-          position: relative;
-        }
-        .radial-center {
-          position: absolute;
-          inset: 0;
-          display: grid;
-          place-items: center;
-          font-weight: 800;
-          font-size: 28px;
-          color: var(--indigo);
-        }
-
-        .part {
-          margin: 12px 0 4px;
-        }
-        .part-title {
-          font-weight: 800;
-          margin-bottom: 8px;
-          letter-spacing: -0.01em;
-        }
-        .qa-list {
-          display: grid;
-          grid-template-columns: 1fr;
-        }
-        .qa-item {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 6px;
-          padding: 12px 0;
-          border-bottom: 1px solid var(--border);
-        }
-        .qa-item .q {
-          font-weight: 600;
-        }
-        .qa-item .a {
-          color: var(--muted);
-        }
-
-        .ai-output {
-          white-space: pre-wrap;
-          font-family: system-ui, -apple-system, BlinkMacSystemFont,
-            "Segoe UI", sans-serif;
-          font-size: 0.92rem;
-          line-height: 1.5;
-        }
-      `}</style>
     </div>
   );
 }
