@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { ReactNode } from "react";
+import { usePathname } from "next/navigation";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { Col, Container, Row, Stack } from "react-bootstrap";
-import bgimage from "../../../public/bgimage.jpg";
 import logo from "../../../public/Ariflex Logo-01.png";
+import bgimage from "../../../public/bgimage.jpg";
 
 interface LoginLayoutProps {
   title: string;
@@ -78,12 +79,33 @@ const RightPanel = () => {
 };
 
 const AuthLayout = ({ children, title, subTitle }: LoginLayoutProps) => {
+  // Animation: fade in on route change (pathname)
+  const pathname = usePathname();
+  const [animate, setAnimate] = useState(true);
+  const animateTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    setAnimate(true);
+    if (animateTimeout.current) clearTimeout(animateTimeout.current);
+    animateTimeout.current = setTimeout(() => setAnimate(false), 500);
+    return () => {
+      if (animateTimeout.current) clearTimeout(animateTimeout.current);
+    };
+  }, [pathname]);
+
   return (
     <Container>
       <Row style={{ height: "100vh" }} className="py-5">
         <>
           <LeftPanel title={title} subTitle={subTitle}>
-            <div>{children}</div>
+            <div
+              className={`client-shell-animator${
+                animate ? " animated-element" : ""
+              }`}
+              key={pathname}
+            >
+              {children}
+            </div>
           </LeftPanel>
           <RightPanel />
         </>

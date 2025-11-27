@@ -105,6 +105,21 @@ body {
   font-size: var(--fs24);
 }
 
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animated-element {
+  animation: fadeSlideIn 0.5s ease;
+}
+
 /* ------------------------------------------------new ui work-------------------- */
 .auth-bg {
   background: #fafafa;
@@ -1473,7 +1488,6 @@ a {
   transition: 0.5s;
   position: relative;
   min-height: 100vh;
-  padding-bottom: 70px;
   overflow: hidden;
 }
 

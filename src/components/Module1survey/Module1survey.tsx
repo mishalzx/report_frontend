@@ -1,8 +1,8 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useMemo, useState } from "react";
-import "./Module1survey.css";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { RiResetLeftFill } from "react-icons/ri";
+import "./Module1survey.css";
 
 /* ---------------- Types ---------------- */
 type Question = { part: string; q: string; answers: string[] };
@@ -353,6 +353,59 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
   const questionSteps = Math.ceil(QUESTIONS.length / GROUP_SIZE);
   const stepsCount = HAS_DETAILS_STEP ? 1 + questionSteps : questionSteps;
   const [step, setStep] = useState(0); // 0 = details
+
+  // Animation management
+  const [stepAnimation, setStepAnimation] = useState<
+    "slide-in-left" | "slide-in-right" | ""
+  >("");
+  const prevStepRef = useRef<number>(0);
+
+  // Custom CSS for animations
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const styleId = "module1survey-animations";
+      if (!document.getElementById(styleId)) {
+        const style = document.createElement("style");
+        style.id = styleId;
+        style.innerHTML = `
+        .step-animate {
+          animation-duration: 400ms;
+          animation-fill-mode: both;
+        }
+        @keyframes step-slide-in-left {
+          from { opacity: 0; transform: translateX(50px);}
+          to   { opacity: 1; transform: translateX(0);}
+        }
+        @keyframes step-slide-in-right {
+          from { opacity: 0; transform: translateX(-50px);}
+          to   { opacity: 1; transform: translateX(0);}
+        }
+        .slide-in-left { animation-name: step-slide-in-left;}
+        .slide-in-right { animation-name: step-slide-in-right;}
+        `;
+        document.head.appendChild(style);
+      }
+    }
+  }, []);
+
+  // Calculate animation direction on step change
+  function animatedSetStep(newStep: number) {
+    setStepAnimation(newStep > step ? "slide-in-right" : "slide-in-left");
+    setTimeout(() => setStep(newStep), 10); // let animation class be set for rerender step content
+    prevStepRef.current = step;
+  }
+
+  // Remove animation class after animation ends, so re-animation works
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!stepAnimation) return;
+    const handler = () => setStepAnimation("");
+    const el = contentRef.current;
+    if (!el) return;
+    el.addEventListener("animationend", handler);
+    return () => el.removeEventListener("animationend", handler);
+  }, [stepAnimation, step]);
 
   // progress (0..stepsCount)
   const progressPct = Math.round((step / stepsCount) * 100);
@@ -719,245 +772,252 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
         {partSubtitle && <p className="muted mb-0">{partSubtitle}</p>}
       </div>
 
-      {/* Step 0: Participant Details */}
-      {step === 0 && (
-        <section className="card panel">
-          <div className="grid-2">
-            <div className="field mb-4">
-              <label className="form-label text-dark">
-                Company Name <span className="primary-text">*</span>
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                value={org.companyName}
-                onChange={(e) =>
-                  setOrg({ ...org, companyName: e.target.value })
-                }
-                placeholder="e.g., Raweyah"
-              />
-            </div>
-            <div className="field mb-4">
-              <label className="form-label text-dark">Contact Person</label>
-              <input
-                type="text"
-                className="form-control"
-                value={org.contactPerson}
-                onChange={(e) =>
-                  setOrg({ ...org, contactPerson: e.target.value })
-                }
-                placeholder="e.g., Mishal"
-              />
-            </div>
-            <div className="field mb-4">
-              <label className="form-label text-dark">
-                Email Address <span className="primary-text">*</span>
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                autoComplete="email"
-                value={org.email}
-                onChange={(e) => setOrg({ ...org, email: e.target.value })}
-                placeholder="you@company.com"
-              />
-            </div>
-            <div className="field mb-4">
-              <label className="form-label text-dark">Phone</label>
-              <input
-                type="tel"
-                className="form-control"
-                value={org.phone}
-                onChange={(e) => setOrg({ ...org, phone: e.target.value })}
-                placeholder="+966…"
-              />
-            </div>
-            <div className="field mb-4">
-              <label className="form-label text-dark">
-                Business Type <span className="primary-text">*</span>
-              </label>
-              <select
-                value={org.businessType}
-                onChange={(e) =>
-                  setOrg({ ...org, businessType: e.target.value })
-                }
-              >
-                <option value="">Select…</option>
-                <option>Agriculture, Forestry and Fishing</option>
-                <option>Mining and Quarrying</option>
-                <option>Manufacturing</option>
-                <option>
-                  Electricity, Gas, Steam and Air Conditioning Supply
-                </option>
-                <option>Water Supply, Sewerage and Waste Management</option>
-                <option>Construction</option>
-                <option>Wholesale and Retail Trade</option>
-                <option>Transportation and Storage</option>
-                <option>Accommodation and Food Service Activities</option>
-                <option>Information and Communication</option>
-                <option>Financial and Insurance Activities</option>
-                <option>Real Estate Activities</option>
-                <option>
-                  Professional, Scientific and Technical Activities
-                </option>
-                <option>Administrative and Support Service Activities</option>
-                <option>Public Administration and Defense</option>
-                <option>Education</option>
-                <option>Human Health and Social Work Activities</option>
-                <option>Arts, Entertainment and Recreation</option>
-                <option>Other Service Activities</option>
-                <option>Other</option>
-              </select>
-            </div>
-            {org.businessType === "Other" && (
+      {/* Step content with animation */}
+      <div
+        ref={contentRef}
+        className={stepAnimation ? `step-animate ${stepAnimation}` : ""}
+        key={step} // force re-mount to trigger animation
+      >
+        {/* Step 0: Participant Details */}
+        {step === 0 && (
+          <section className="card panel">
+            <div className="grid-2">
               <div className="field mb-4">
                 <label className="form-label text-dark">
-                  Other business type <span className="primary-text">*</span>
+                  Company Name <span className="primary-text">*</span>
                 </label>
                 <input
                   type="text"
                   className="form-control"
-                  value={org.businessTypeOther}
+                  value={org.companyName}
                   onChange={(e) =>
-                    setOrg({ ...org, businessTypeOther: e.target.value })
+                    setOrg({ ...org, companyName: e.target.value })
                   }
-                  placeholder="Describe"
+                  placeholder="e.g., Raweyah"
                 />
               </div>
-            )}
-            <div className="field full">
-              <label className="form-label text-dark">
-                Survey By <span className="primary-text">*</span>
-              </label>
-              <div className="d-flex gap-3 mt-2">
+              <div className="field mb-4">
+                <label className="form-label text-dark">Contact Person</label>
                 <input
-                  type="radio"
-                  id="test1"
-                  name="radio-group"
-                  checked={org.surveyBy === "company"}
-                  onChange={() =>
-                    setOrg({
-                      ...org,
-                      surveyBy: "company",
-                      department: "",
-                      departmentOther: "",
-                    })
+                  type="text"
+                  className="form-control"
+                  value={org.contactPerson}
+                  onChange={(e) =>
+                    setOrg({ ...org, contactPerson: e.target.value })
                   }
+                  placeholder="e.g., Mishal"
                 />
-                <label className="text-dark" htmlFor="test1">
-                  By the Company
+              </div>
+              <div className="field mb-4">
+                <label className="form-label text-dark">
+                  Email Address <span className="primary-text">*</span>
                 </label>
                 <input
-                  type="radio"
-                  id="test2"
-                  name="radio-group"
-                  checked={org.surveyBy === "department"}
-                  onChange={() => setOrg({ ...org, surveyBy: "department" })}
+                  type="email"
+                  className="form-control"
+                  autoComplete="email"
+                  value={org.email}
+                  onChange={(e) => setOrg({ ...org, email: e.target.value })}
+                  placeholder="you@company.com"
                 />
-                <label className="text-dark" htmlFor="test2">
-                  By the department
-                </label>
               </div>
-            </div>
-            {org.surveyBy === "department" && (
+              <div className="field mb-4">
+                <label className="form-label text-dark">Phone</label>
+                <input
+                  type="tel"
+                  className="form-control"
+                  value={org.phone}
+                  onChange={(e) => setOrg({ ...org, phone: e.target.value })}
+                  placeholder="+966…"
+                />
+              </div>
+              <div className="field mb-4">
+                <label className="form-label text-dark">
+                  Business Type <span className="primary-text">*</span>
+                </label>
+                <select
+                  value={org.businessType}
+                  onChange={(e) =>
+                    setOrg({ ...org, businessType: e.target.value })
+                  }
+                >
+                  <option value="">Select…</option>
+                  <option>Agriculture, Forestry and Fishing</option>
+                  <option>Mining and Quarrying</option>
+                  <option>Manufacturing</option>
+                  <option>
+                    Electricity, Gas, Steam and Air Conditioning Supply
+                  </option>
+                  <option>Water Supply, Sewerage and Waste Management</option>
+                  <option>Construction</option>
+                  <option>Wholesale and Retail Trade</option>
+                  <option>Transportation and Storage</option>
+                  <option>Accommodation and Food Service Activities</option>
+                  <option>Information and Communication</option>
+                  <option>Financial and Insurance Activities</option>
+                  <option>Real Estate Activities</option>
+                  <option>
+                    Professional, Scientific and Technical Activities
+                  </option>
+                  <option>Administrative and Support Service Activities</option>
+                  <option>Public Administration and Defense</option>
+                  <option>Education</option>
+                  <option>Human Health and Social Work Activities</option>
+                  <option>Arts, Entertainment and Recreation</option>
+                  <option>Other Service Activities</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              {org.businessType === "Other" && (
+                <div className="field mb-4">
+                  <label className="form-label text-dark">
+                    Other business type <span className="primary-text">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={org.businessTypeOther}
+                    onChange={(e) =>
+                      setOrg({ ...org, businessTypeOther: e.target.value })
+                    }
+                    placeholder="Describe"
+                  />
+                </div>
+              )}
               <div className="field full">
                 <label className="form-label text-dark">
-                  Department <span className="primary-text">*</span>
+                  Survey By <span className="primary-text">*</span>
                 </label>
-                <div>
-                  <select
-                    value={org.department}
-                    onChange={(e) =>
+                <div className="d-flex gap-3 mt-2">
+                  <input
+                    type="radio"
+                    id="test1"
+                    name="radio-group"
+                    checked={org.surveyBy === "company"}
+                    onChange={() =>
                       setOrg({
                         ...org,
-                        department: e.target.value,
-                        ...(e.target.value !== "Other"
-                          ? { departmentOther: "" }
-                          : {}),
+                        surveyBy: "company",
+                        department: "",
+                        departmentOther: "",
                       })
                     }
-                  >
-                    <option value="">Select…</option>
-                    <option>Sales</option>
-                    <option>Marketing</option>
-                    <option>Operations</option>
-                    <option>HR</option>
-                    <option>Finance</option>
-                    <option>IT</option>
-                    <option>Customer Support</option>
-                    <option>R&amp;D</option>
-                    <option>Procurement</option>
-                    <option>Legal</option>
-                    <option>Other</option>
-                  </select>
-                  {org.department === "Other" && (
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Other department"
-                      value={org.departmentOther}
+                  />
+                  <label className="text-dark" htmlFor="test1">
+                    By the Company
+                  </label>
+                  <input
+                    type="radio"
+                    id="test2"
+                    name="radio-group"
+                    checked={org.surveyBy === "department"}
+                    onChange={() => setOrg({ ...org, surveyBy: "department" })}
+                  />
+                  <label className="text-dark" htmlFor="test2">
+                    By the department
+                  </label>
+                </div>
+              </div>
+              {org.surveyBy === "department" && (
+                <div className="field full">
+                  <label className="form-label text-dark">
+                    Department <span className="primary-text">*</span>
+                  </label>
+                  <div>
+                    <select
+                      value={org.department}
                       onChange={(e) =>
-                        setOrg({ ...org, departmentOther: e.target.value })
+                        setOrg({
+                          ...org,
+                          department: e.target.value,
+                          ...(e.target.value !== "Other"
+                            ? { departmentOther: "" }
+                            : {}),
+                        })
                       }
-                    />
-                  )}
-                </div>
-              </div>
-            )}
-          </div>
-          <p className="muted mt-5">
-            Details are stored locally and included in the Strapi payload.
-          </p>
-        </section>
-      )}
-
-      {/* Question pages (2 per step) */}
-      {step > 0 && (
-        <div className="q-list">
-          {pageQuestions.map((q, idx) => {
-            const qi = pageIndexes[idx];
-            const current = answers[qi];
-            return (
-              <div key={qi} className="q-card">
-                <div className="q-text mb-3">{q.q}</div>
-                <div className=" d-flex gap-3 align-items-center flex-wrap">
-                  {q.answers.map((label, i) => (
-                    <label
-                      key={i}
-                      className={`opt  mb-3 ${current === i ? "active" : ""}`}
                     >
+                      <option value="">Select…</option>
+                      <option>Sales</option>
+                      <option>Marketing</option>
+                      <option>Operations</option>
+                      <option>HR</option>
+                      <option>Finance</option>
+                      <option>IT</option>
+                      <option>Customer Support</option>
+                      <option>R&amp;D</option>
+                      <option>Procurement</option>
+                      <option>Legal</option>
+                      <option>Other</option>
+                    </select>
+                    {org.department === "Other" && (
                       <input
-                        type="radio"
-                        name={`q-${qi}`}
-                        checked={current === i}
-                        onChange={() => choose(qi, i)}
+                        type="text"
+                        className="form-control"
+                        placeholder="Other department"
+                        value={org.departmentOther}
+                        onChange={(e) =>
+                          setOrg({ ...org, departmentOther: e.target.value })
+                        }
                       />
-                      <span>{label.split(" (")[0]}</span>
-                    </label>
-                  ))}
+                    )}
+                  </div>
                 </div>
-                <div className="meta">
-                  <span className="chip">Automation</span>
-                  <a
-                    className="mini"
-                    href="#"
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    1 = none → 5 = API + monitoring
-                  </a>
+              )}
+            </div>
+            <p className="muted mt-5">
+              Details are stored locally and included in the Strapi payload.
+            </p>
+          </section>
+        )}
+
+        {/* Question pages (2 per step) */}
+        {step > 0 && (
+          <div className="q-list">
+            {pageQuestions.map((q, idx) => {
+              const qi = pageIndexes[idx];
+              const current = answers[qi];
+              return (
+                <div key={qi} className="q-card">
+                  <div className="q-text mb-3">{q.q}</div>
+                  <div className=" d-flex gap-3 align-items-center flex-wrap">
+                    {q.answers.map((label, i) => (
+                      <label
+                        key={i}
+                        className={`opt  mb-3 ${current === i ? "active" : ""}`}
+                      >
+                        <input
+                          type="radio"
+                          name={`q-${qi}`}
+                          checked={current === i}
+                          onChange={() => choose(qi, i)}
+                        />
+                        <span>{label.split(" (")[0]}</span>
+                      </label>
+                    ))}
+                  </div>
+                  <div className="meta">
+                    <span className="chip">Automation</span>
+                    <a
+                      className="mini"
+                      href="#"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      1 = none → 5 = API + monitoring
+                    </a>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
+              );
+            })}
+          </div>
+        )}
+      </div>
 
       {/* Footer nav */}
       <div className="footer-nav mt-4">
         <button
           className="ghost d-flex gap-2 align-items-center"
           disabled={step === 0}
-          onClick={() => setStep((s) => Math.max(0, s - 1))}
+          onClick={() => animatedSetStep(Math.max(0, step - 1))}
         >
           ‹ Back
         </button>
@@ -965,7 +1025,7 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
           <button
             className="ghost d-flex gap-2 align-items-center"
             disabled={!pageValid}
-            onClick={() => setStep((s) => Math.min(stepsCount, s + 1))}
+            onClick={() => animatedSetStep(Math.min(stepsCount, step + 1))}
           >
             Next ›
           </button>
@@ -979,8 +1039,6 @@ export default function Module1Survey({ authToken }: { authToken?: string }) {
           </button>
         )}
       </div>
-
-      {/* Styles */}
     </div>
   );
 }
