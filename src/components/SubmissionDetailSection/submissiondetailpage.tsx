@@ -545,7 +545,60 @@ export default function SubmissionDetailPage() {
           <h3 className=" fw-semibold letter-spacing mb-4">
             AI Diagnostic Summary
           </h3>
-          <pre className="ai-output">{aiReport}</pre>
+          <div
+            className="ai-output-vscode"
+            style={{
+              background: "#1e1e1e",
+              color: "#d4d4d4",
+              borderRadius: "8px",
+              fontFamily: "'Fira Mono', 'Consolas', 'Monaco', monospace",
+              padding: "1.25rem",
+              fontSize: "1rem",
+              margin: "0 0 1.5rem 0",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.07)",
+              border: "1px solid #264f78",
+              position: "relative",
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                top: "0.75rem",
+                right: "1.25rem",
+                color: "#858585",
+                fontSize: "0.93em",
+                fontWeight: 500,
+                letterSpacing: "0.04em",
+                background: "rgba(30,30,30,0.7)",
+                padding: "2px 10px",
+                borderRadius: "6px",
+                border: "1px solid #20232a",
+                pointerEvents: "none",
+                userSelect: "none",
+              }}
+            >
+              <span role="img" aria-label="AI icon" style={{ marginRight: 8 }}>
+                🤖
+              </span>
+              AI Generated
+            </div>
+            <pre
+              style={{
+                background: "transparent",
+                color: "inherit",
+                padding: 0,
+                margin: 0,
+                border: "none",
+                whiteSpace: "pre-wrap",
+                wordBreak: "break-word",
+                fontFamily: "inherit",
+                fontSize: "1em",
+              }}
+              className="ai-vscode-pre"
+            >
+              {aiReport}
+            </pre>
+          </div>
         </section>
       )}
     </div>
